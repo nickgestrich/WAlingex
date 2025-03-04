@@ -1,30 +1,21 @@
 ---
-title: "Title Goes Here"
+title: "Loan word maps"
 author:
-  - Jane Doe:
+  - Henning Schreiber:
       correspondence: "yes"
       email: janedoe@fosg.org
       orcid: 0000-0003-1689-0557
       institute:
-        - fosg
-        - fop
-  - John Q. Doe:
-      institute: fosg
+        - uhh
+  - Nikolas Gestrich:
+      institute: fi
       orcid: 0000-0003-1689-0558
-  - Peder Ås:
-      institute: fosg
-      orcid: 0000-0003-1689-0559
-  - Juan Pérez:
-      orcid: 0000-0003-1689-0551
-      institute:
-        - name: Acme Corporation
-  - Max Mustermann:
-      orcid: 0000-0003-1689-0552
+ 
 institute:
-  - fosg:
-      name: Formatting Open Science Group
+  - uhh:
+      name: Universität Hamburg
       address: 23 Science Street, Eureka, Mississippi, USA
-  - fop: Federation of Planets
+  - fi: Frobenius Institute
 title-block-published: "Last updated"  
 date: now
 date-format: long
@@ -62,24 +53,146 @@ Highlights: `r rmarkdown::metadata$highlights`
 
 <!-- The actual document text starts here: -->
 
-# Introduction
+# Creating language maps
 
-Here is a citation [@Marwick2017]
-
-# Background
-
-# Methods
-
-# Results
-
-<!-- Here's some example analysis code: -->
+Read location data from glottolog and Sahelia databases
 
 ```{r}
 #| label: get-data
 #| eval: false
-# Note the path that we need to use to access our data files when rendering this document
-my_data <- read.csv(here::here('analysis/data/raw_data/my_csv_file.csv'))
+# Read data
+langloc <- readr::read_csv(here::here('analysis/data/raw_data/language_location.csv')) |>
+  
+# drop languages with unknown location
+  tidyr::drop_na(longitude) |> 
+
+  # turn latitude and longitude columns into geometry
+  sf::st_as_sf(coords = c("longitude","latitude"))
+
+# set crs
+sf::st_crs(langloc) <- 4326
 ```
+
+```{r}
+# read classified loan word data
+
+# Define the file path
+file_path <- here::here('analysis/data/raw_data/cleaned exports.xlsx')
+
+# Get the names of all the sheets in the Excel file
+sheet_names <- readxl::excel_sheets(file_path)
+
+# Read each sheet and store it as a separate data frame
+for (sheet in sheet_names) {
+  assign(sheet, readxl::read_excel(file_path, sheet = sheet, col_names = TRUE)) 
+}
+
+```
+
+add the location data 
+
+```{r}
+# add location to the gold sheet
+
+# merge by glottolog code 
+gold <- gold |> 
+  #join by glottolog code
+  dplyr::left_join(langloc, by = c("lang" = "GlottCode"))
+
+# split off where glottolog code matching was successful
+gold_a <-  gold |> dplyr::filter(!is.na(LanName))
+
+
+gold_a <- gold |> filter(!is.na(LanName))
+
+#where the glottolog code is not available, merge by Sahelia name
+gold <- gold |> 
+  dplyr::mutate(id2 = ifelse(is.na(LanName), id2, NA))
+
+# Perform the first join on the primary id1
+merged_data <- data1 %>%
+  left_join(data2, by = c("id1" = "id"))
+
+# For the rows where the primary ID did not match, perform a second join on id2
+final_data <- merged_data %>%
+  mutate(id2 = ifelse(is.na(x), id2, NA)) %>%   # Set id2 as NA if the primary join succeeded
+  left_join(data2, by = c("id2" = "id")) %>%
+  select(-id2)  # Drop the temporary id2 column
+```
+
+
+```{r}
+library(dplyr)
+library(stringr)
+library(sf)
+library(readr)
+library(leaflet)
+library(purrr)
+library(glue)
+library(htmltools)
+
+# 3. Load classified language data and plot
+
+# Load data
+gold <- read_csv("gold.csv") %>%
+
+  # Modify the "lang" column to keep only the first expression and remove the number behind it
+  mutate(lang = str_trim(str_extract(lang, "^[^ ]+"))) %>%
+
+  # Join the langloc dataset with the gold dataset
+  inner_join(langloc, by = c("lang" = "lang_code")) %>%
+
+  # Exclude rows where the "form" variable contains NA values
+  filter(!is.na(form))
+
+# 4. Plot on an interactive leaflet map
+# Define a color palette for the "form" column
+color_pal <- colorFactor(palette = "Set3", domain = gold$form)
+
+# Add a new column with the corresponding colors
+gold <- gold %>%
+  mutate(color = color_pal(form))
+
+# Create the leaflet map
+leaflet(gold) %>%
+  addProviderTiles(providers$Esri.WorldPhysical) %>%
+  addLabelOnlyMarkers(
+    lng = ~st_coordinates(geometry)[,1],
+    lat = ~st_coordinates(geometry)[,2],
+    label = purrr::map(
+      glue::glue("<span style='color:{gold$color}; font-weight: bold; font-size: 12px;'>{as.character(gold$form)}</span>"),
+      htmltools::HTML
+    ),
+    labelOptions = labelOptions(
+      noHide = TRUE,
+      direction = 'top',
+      textOnly = TRUE
+    )
+  )
+
+
+## NEXT: run this for a list of files and output a html file leaflet map for each.
+
+```
+
+
+
+Merge using two columns
+
+```{r}
+# Perform the first join on the primary id1
+merged_data <- data1 %>%
+  left_join(data2, by = c("id1" = "id"))
+
+# For the rows where the primary ID did not match, perform a second join on id2
+final_data <- merged_data %>%
+  mutate(id2 = ifelse(is.na(x), id2, NA)) %>%   # Set id2 as NA if the primary join succeeded
+  left_join(data2, by = c("id2" = "id")) %>%
+  select(-id2)  # Drop the temporary id2 column
+```
+
+
+
 
 ```{r}
 #| label: fig-demo-plot
