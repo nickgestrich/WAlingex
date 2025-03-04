@@ -1,0 +1,16 @@
+Package: WAlingex
+Title: West African Historical Linguistic evidence for exchange
+Version: 0.0.0.9000
+Authors@R:
+    person("Nikolas", "Gestrich", , "gestrich@uni-frankfurt.de", role = c("aut", "cre"))
+    person("Henning", "Schreiber", , "henning.schreiber@uni-hamburg.de", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: here
+Suggests: devtools,
+    git2r
