@@ -21,6 +21,15 @@ Imports: here,
     sf (>= 1.0-19),
     tidyr (>= 1.3.1),
     tools (>= 4.4.2),
-    utils (>= 4.4.2)
+    utils (>= 4.4.2),
+    dplyr (>= 1.1.4),
+    glue (>= 1.8.0),
+    htmltools (>= 0.5.8.1),
+    htmlwidgets (>= 1.6.4),
+    leaflet (>= 2.2.2),
+    purrr (>= 1.0.4),
+    rlang (>= 1.1.5),
+    stats (>= 4.4.2),
+    stringr (>= 1.5.1)
 Suggests: devtools,
     git2r
