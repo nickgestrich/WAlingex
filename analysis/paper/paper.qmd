@@ -61,7 +61,10 @@ Read location data from glottolog and Sahelia databases
 #| label: get-data
 #| eval: false
 # Read data
-langloc <- readr::read_csv(here::here('analysis/data/raw_data/language_location.csv')) |>
+langloc <- readr::read_csv(here::here('analysis/data/raw_data/glottologAfricanLanguages.csv')) |>
+  
+  #retain only relevant variables
+  dplyr::select(glott_code, latitude, longitude, LanName) |> 
   
 # drop languages with unknown location
   tidyr::drop_na(longitude) |> 
@@ -75,50 +78,150 @@ sf::st_crs(langloc) <- 4326
 
 ```{r}
 # read classified loan word data
+# Create a vector of file paths
+objs <- here::here("analysis", "data", "raw_data", c("gold.csv", 
+                                                     "fonio.csv",
+                                                     "millet.csv",
+                                                     "salt.csv",
+                                                     "iron.csv"))
 
-# Define the file path
-file_path <- here::here('analysis/data/raw_data/cleaned exports.xlsx')
+# read the csv files into a list of data frames
+data_list <- purrr::map(objs, readr::read_csv)
 
-# Get the names of all the sheets in the Excel file
-sheet_names <- readxl::excel_sheets(file_path)
+# Add the location data to the word lists
 
-# Read each sheet and store it as a separate data frame
-for (sheet in sheet_names) {
-  assign(sheet, readxl::read_excel(file_path, sheet = sheet, col_names = TRUE)) 
+# Function to join location data to each data frame
+join_geometry <- function(df) {
+  df |> 
+    dplyr::left_join(langloc, by = "glott_code") |> 
+    sf::st_as_sf()  # Convert the result to an sf object if needed
 }
 
+# Apply the join function to each data frame in the list
+data_list <- purrr::map(data_list, join_geometry)
 ```
 
-add the location data 
-
+Function to make interactive leaflet maps
 ```{r}
-# add location to the gold sheet
+create_leaflet_map <- function(data_sf, form_column = "form", background = "colour") {
+  
+  # Ensure the input data is an sf object and contains the 'form' column
+  if (!inherits(data_sf, "sf")) {
+    stop("The input data must be an sf object.")
+  }
+  if (!form_column %in% colnames(data_sf)) {
+    stop(paste("The column", form_column, "is not found in the data."))
+  }
+  
+  # Filter out rows with NA values in the "form" column
+  data_sf <- data_sf |>
+    dplyr::filter(!is.na(!!rlang::sym(form_column)))
+  
+  # Set the tile provider based on the 'background' argument
+  tile_provider <- switch(
+    background,
+    "colour" = leaflet::providers$Esri.WorldPhysical,  # Default color tile
+    "bw" = leaflet::providers$Esri.WorldGrayCanvas,    # Black-and-white tile
+    stop("Invalid value for 'background'. Choose 'colour' or 'bw'.")
+  )
 
-# merge by glottolog code 
-gold <- gold |> 
-  #join by glottolog code
-  dplyr::left_join(langloc, by = c("lang" = "GlottCode"))
+  # Define a color palette for the "form" column (using Set3 palette)
+  color_pal <- leaflet::colorFactor(palette = "Set3", domain = data_sf[[form_column]])
 
-# split off where glottolog code matching was successful
-gold_a <-  gold |> dplyr::filter(!is.na(LanName))
+  # Add a new column with the corresponding colors based on the 'form' column
+  data_sf <- data_sf |>
+    dplyr::mutate(color = color_pal(!!rlang::sym(form_column)))  # Dynamically reference the column
 
+  # Adjust overlapping points by slightly jittering their coordinates
+  # Initially apply fixed jitter for the map creation
+  jitter_scale <- 0.1000  # Set the base jitter scale factor
 
-gold_a <- gold |> filter(!is.na(LanName))
+  data_sf <- data_sf |>
+    dplyr::mutate(
+      # Apply a small random jitter to coordinates for initial display
+      jittered_lon = sf::st_coordinates(geometry)[, 1] + stats::rnorm(dplyr::n(), mean = 0, sd = jitter_scale),
+      jittered_lat = sf::st_coordinates(geometry)[, 2] + stats::rnorm(dplyr::n(), mean = 0, sd = jitter_scale)
+    )
 
-#where the glottolog code is not available, merge by Sahelia name
-gold <- gold |> 
-  dplyr::mutate(id2 = ifelse(is.na(LanName), id2, NA))
+  # Create the leaflet map
+  leaflet_map <- leaflet::leaflet(data_sf) |>
+    leaflet::addProviderTiles(tile_provider) |>
+    leaflet::addLabelOnlyMarkers(
+      lng = ~jittered_lon,  # Use jittered longitude
+      lat = ~jittered_lat,  # Use jittered latitude
+      label = purrr::map(
+        glue::glue("<span style='color:{data_sf$color}; font-weight: bold; font-size: 12px;'>{as.character(data_sf[[form_column]])}</span>"),
+        htmltools::HTML
+      ),
+      labelOptions = leaflet::labelOptions(
+        noHide = TRUE,
+        direction = 'top',
+        textOnly = TRUE
+      )
+    )
 
-# Perform the first join on the primary id1
-merged_data <- data1 %>%
-  left_join(data2, by = c("id1" = "id"))
+  # Add JavaScript to dynamically adjust jitter based on zoom level
+  leaflet_map <- leaflet_map |>
+    htmlwidgets::onRender(
+      "
+      function(el, map) {
+        // Function to apply jitter based on zoom level
+        function applyJitter() {
+          var zoomLevel = map.getZoom();
+          var jitterScale = 0.1 * Math.pow(1.7, zoomLevel); // Adjust jitter with zoom level
 
-# For the rows where the primary ID did not match, perform a second join on id2
-final_data <- merged_data %>%
-  mutate(id2 = ifelse(is.na(x), id2, NA)) %>%   # Set id2 as NA if the primary join succeeded
-  left_join(data2, by = c("id2" = "id")) %>%
-  select(-id2)  # Drop the temporary id2 column
+          // Adjust the jitter of each marker
+          map.eachLayer(function(layer) {
+            if (layer instanceof L.Marker) {
+              var latLng = layer.getLatLng();
+              var newLat = latLng.lat + (Math.random() - 0.5) * jitterScale;
+              var newLng = latLng.lng + (Math.random() - 0.5) * jitterScale;
+              layer.setLatLng([newLat, newLng]);
+            }
+          });
+        }
+
+        // Apply jitter on map zoom change
+        map.on('zoomend', function() {
+          applyJitter();
+        });
+
+        // Apply jitter initially
+        applyJitter();
+      }
+      "
+    )
+  
+  # Return the map object
+  return(leaflet_map)
+}
 ```
+
+
+Function to save a version of every map in the list of data
+```{r}
+# Function to create and save leaflet maps for all data frames in data_list
+save_maps <- function(data_list, form_column = "form", background = "colour") {
+  
+  # Use purrr::map2 to iterate over the list of data frames and generate maps
+  purrr::map2(data_list, seq_along(data_list), ~ {
+    # Create the map using the create_leaflet_map function
+    map <- create_leaflet_map(.x, form_column, background)
+    
+    # Generate the filename based on the index or data frame name
+    filename <- paste0("map_", .y, ".html")
+    
+    # Save the map as an HTML file in the 'analysis/figures' folder
+    htmlwidgets::saveWidget(map, here::here("analysis/figures", filename))
+  })
+}
+```
+
+Save an html version of all objects
+```{r}
+save_maps(data_list, background = "bw")
+```
+
 
 
 ```{r}
