@@ -5,8 +5,8 @@ author:
       correspondence: "yes"
       email: janedoe@fosg.org
       orcid: 0000-0003-1689-0557
-      institute:
-        - uhh
+      institute: uhh
+      
   - Nikolas Gestrich:
       institute: fi
       orcid: 0000-0003-1689-0558
@@ -59,7 +59,7 @@ Read location data from glottolog and Sahelia databases
 
 ```{r}
 #| label: get-data
-#| eval: false
+#| eval: true
 # Read data
 langloc <- readr::read_csv(here::here('analysis/data/raw_data/glottologAfricanLanguages.csv')) |>
   
@@ -76,7 +76,7 @@ langloc <- readr::read_csv(here::here('analysis/data/raw_data/glottologAfricanLa
 sf::st_crs(langloc) <- 4326
 ```
 
-```{r}
+```{r read data}
 # read classified loan word data
 # Create a vector of file paths
 objs <- here::here("analysis", "data", "raw_data", c("gold.csv", 
@@ -102,7 +102,7 @@ data_list <- purrr::map(data_list, join_geometry)
 ```
 
 The data contains certain duplicate entries. These need to be removed to avoid overly full plots
-```{r}
+```{r clean duplicates}
 # Function to remove duplicates
 remove_duplicates <- function(df_list) {
   df_list <- lapply(df_list, function(df) {
@@ -120,7 +120,7 @@ data_list <- remove_duplicates(data_list)
 
 Function to make interactive leaflet maps
 
-```{r}
+```{r map function}
 create_leaflet_map <- function(data_sf, form_column = "form", style_column = "style", background = "colour") {
   
   # Ensure the input data is an sf object and contains the required columns
@@ -236,7 +236,7 @@ create_leaflet_map <- function(data_sf, form_column = "form", style_column = "st
 
 
 Function to save a version of every map in the list of data
-```{r}
+```{r save function}
 # Function to create and save leaflet maps for all data frames in data_list
 save_maps <- function(data_list, form_column = "form", background = "colour") {
   
@@ -256,7 +256,11 @@ save_maps <- function(data_list, form_column = "form", background = "colour") {
 
 Save an html version of all objects
 ```{r}
+#| label: save-maps
+#| eval: false
 save_maps(data_list, background = "bw")
+
+create_leaflet_map(data_list[[2]])
 ```
 
 
