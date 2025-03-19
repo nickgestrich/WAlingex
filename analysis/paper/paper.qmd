@@ -1,5 +1,5 @@
 ---
-title: "Loan word maps"
+title: "Make maps of loan words"
 author:
   - Henning Schreiber:
       correspondence: "yes"
@@ -53,9 +53,7 @@ Highlights: `r rmarkdown::metadata$highlights`
 
 <!-- The actual document text starts here: -->
 
-# Creating language maps
-
-Read location data from glottolog and Sahelia databases
+In order to have location data, we read in the African languages, their glottoglog code, and their location from the glottolog database (@hammarstromGlottolog2024).
 
 ```{r}
 #| label: get-data
@@ -75,6 +73,8 @@ langloc <- readr::read_csv(here::here('analysis/data/raw_data/glottologAfricanLa
 # set crs
 sf::st_crs(langloc) <- 4326
 ```
+
+Next, we read in the data and join the entries to the glottolog entries. Modify the list of .csv files to suit your interests. If you want to upload new files, place these in the directory /analysis/data/raw_data.Make sure any new data has a glottolog language code in a varaible named "glott_code"
 
 ```{r read data}
 # read classified loan word data
@@ -101,7 +101,7 @@ join_geometry <- function(df) {
 data_list <- purrr::map(data_list, join_geometry)
 ```
 
-The data contains certain duplicate entries. These need to be removed to avoid overly full plots
+The data may contain certain duplicate entries. These need to be removed to avoid overly full plots. This is done by running the code below.
 ```{r clean duplicates}
 # Function to remove duplicates
 remove_duplicates <- function(df_list) {
@@ -258,36 +258,14 @@ Save an html version of all objects
 ```{r}
 #| label: save-maps
 #| eval: false
-save_maps(data_list, background = "bw")
+#save_maps(data_list, background = "bw")
 
-create_leaflet_map(data_list[[2]])
+#create_leaflet_map(data_list[[2]])
 ```
 
 
 
 
-
-```{r}
-#| label: fig-demo-plot
-#| fig-cap: "A plot of random numbers"
-plot(rnorm(10))
-```
-
-@fig-demo-plot shows how we can have a caption and cross-reference for a plot. Note that figure label and cross-references must both be prefixed with `fig-`
-
-```{r}
-#| label: demo-inline-code
-#| echo: false
-x <- round(pi, 2)
-```
-
-Here is an example of inline code `r x` in the middle of a sentence.
-
-# Discussion
-
-# Conclusion
-
-# Acknowledgements
 
 <!-- The following line inserts a page break  -->
 
