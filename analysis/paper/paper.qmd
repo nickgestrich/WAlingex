@@ -41,6 +41,7 @@ keywords: |
   keyword 1; keyword 2; keyword 3
 highlights: |
   These are the highlights. 
+prefer-html: true
 ---
 
 <!-- This is the format for text comments that will be ignored during renderings. Do not put R code in these comments because it will not be ignored. -->
@@ -253,6 +254,13 @@ save_maps <- function(data_list, form_column = "form", background = "colour") {
   })
 }
 ```
+
+```{r}
+#| label: fonio
+#| fig-cap: "fonio word forms"
+create_leaflet_map(data_list[[2]])
+```
+
 
 Save an html version of all objects
 ```{r}
