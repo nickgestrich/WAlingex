@@ -100,9 +100,13 @@ join_geometry <- function(df) {
 
 # Apply the join function to each data frame in the list
 data_list <- purrr::map(data_list, join_geometry)
+
+# Assign names
+names(data_list) <- c("gold", "fonio", "millet", "salt", "iron")
 ```
 
 The data may contain certain duplicate entries. These need to be removed to avoid overly full plots. This is done by running the code below.
+
 ```{r clean duplicates}
 # Function to remove duplicates
 remove_duplicates <- function(df_list) {
@@ -118,6 +122,14 @@ remove_duplicates <- function(df_list) {
 data_list <- remove_duplicates(data_list)
 ```
 
+Classifications go into more detail than we need for plotting. We will only retain a rough classification here:
+
+```{r}
+data_list <- data_list |> 
+  purrr::map(~ dplyr::mutate(.x, style = stringr::str_extract(style, "^[A-Za-z]")))
+```
+
+## Make interactive maps
 
 Function to make interactive leaflet maps
 
@@ -234,9 +246,8 @@ create_leaflet_map <- function(data_sf, form_column = "form", style_column = "st
 }
 ```
 
-
-
 Function to save a version of every map in the list of data
+
 ```{r save function}
 # Function to create and save leaflet maps for all data frames in data_list
 save_maps <- function(data_list, form_column = "form", background = "colour") {
@@ -258,22 +269,259 @@ save_maps <- function(data_list, form_column = "form", background = "colour") {
 ```{r}
 #| label: fonio
 #| fig-cap: "fonio word forms"
-create_leaflet_map(data_list[[2]])
+ create_leaflet_map(data_list[[1]], background = "bw")
 ```
 
-
 Save an html version of all objects
+
 ```{r}
 #| label: save-maps
 #| eval: false
-#save_maps(data_list, background = "bw")
-
-#create_leaflet_map(data_list[[2]])
+save_maps(data_list)
 ```
 
+## Make static maps (for printing etc)
+
+Function to make static plots
+
+```{r}
+create_static_map <- function(data_sf, form_column = "form", style_column = "style", plot_title = NULL) {
+
+  # Ensure the input data is an sf object and contains the required columns
+  if (!inherits(data_sf, "sf")) {
+    stop("The input data must be an sf object.")
+  }
+  if (!style_column %in% colnames(data_sf)) {
+    stop(paste("The column", style_column, "is not found in the data."))
+  }
+  if (!"glott_code" %in% colnames(data_sf)) {
+    stop("The column 'glott_code' is not found in the data.")
+  }
+  if (!"LanName" %in% colnames(data_sf)) {
+    stop("The column 'LanName' is not found in the data.")
+  }
+
+  # Filter out rows with NA values in the "style" column
+  data_sf <- data_sf |> dplyr::filter(!is.na(!!rlang::sym(style_column)))
+
+  # Define the color palette for the "style" column, ensuring darker colors
+  num_categories <- length(unique(data_sf[[style_column]]))
+  dark_palette <- scales::brewer_pal(palette = "Dark2")(num_categories)
+
+  # Create the base map with background
+  base_map <- ggplot2::ggplot() +
+    ggspatial::annotation_map_tile(tiles = "http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/${z}/${y}/${x}") +
+    ggplot2::geom_sf(data = data_sf, ggplot2::aes(color = !!rlang::sym(style_column)), show.legend = FALSE) +
+    ggplot2::scale_color_manual(values = dark_palette) +
+    ggplot2::theme_minimal() +
+    ggplot2::theme(legend.position = "bottom") +
+    ggplot2::labs(color = style_column)
+
+  # Add the plot title if provided
+  if (!is.null(plot_title)) {
+    base_map <- base_map + ggplot2::ggtitle(plot_title)
+  }
+
+  # Crop the extent of the map to the data layers' extent
+  base_map <- base_map + ggplot2::coord_sf(xlim = sf::st_bbox(data_sf)[c("xmin", "xmax")],
+                                           ylim = sf::st_bbox(data_sf)[c("ymin", "ymax")])
+
+  # Plot the data as strings contained in the form_column variable
+  map_plot <- base_map +
+    ggplot2::geom_text(data = data_sf, ggplot2::aes(x = sf::st_coordinates(data_sf)[,1],
+                                                    y = sf::st_coordinates(data_sf)[,2],
+                                                    label = !!rlang::sym(form_column),
+                                                    color = !!rlang::sym(style_column)),
+                       position = ggplot2::position_jitter(width = 0.1, height = 0.1), size = 3)
+
+  # Return the ggplot object
+  return(map_plot)
+}
+```
+
+Make static plots
+
+```{r}
+create_static_map(data_list[[2]], plot_title = "fonio")
+```
+
+```{r}
+create_static_map_tmap <- function(data_sf, form_column = "form", style_column = "style", plot_title = NULL) {
+  
+  # Ensure the input data is an sf object and contains the required columns
+  if (!inherits(data_sf, "sf")) {
+    stop("The input data must be an sf object.")
+  }
+  if (!style_column %in% colnames(data_sf)) {
+    stop(paste("The column", style_column, "is not found in the data."))
+  }
+  if (!"glott_code" %in% colnames(data_sf)) {
+    stop("The column 'glott_code' is not found in the data.")
+  }
+  if (!"LanName" %in% colnames(data_sf)) {
+    stop("The column 'LanName' is not found in the data.")
+  }
+
+  # Filter out rows with NA values in the "style" column
+  data_sf <- data_sf |> dplyr::filter(!is.na(!!rlang::sym(style_column)))
+  
+  # Define the color palette for the "style" column, ensuring darker colors
+  num_categories <- length(unique(data_sf[[style_column]]))
+  dark_palette <- scales::brewer_pal(palette = "Dark2")(num_categories)
+  
+  # Get the background map using maptiles package
+  background_map <- maptiles::get_tiles(data_sf, provider = "Esri.WorldGrayCanvas", crop = TRUE)
+  
+  # Increase the boundaries of the plot
+  bbox <- sf::st_bbox(data_sf)
+  x_range <- bbox["xmax"] - bbox["xmin"]
+  y_range <- bbox["ymax"] - bbox["ymin"]
+  bbox["xmin"] <- bbox["xmin"] - 50 * x_range
+  bbox["xmax"] <- bbox["xmax"] + 50 * x_range
+  bbox["ymin"] <- bbox["ymin"] - 50 * y_range
+  bbox["ymax"] <- bbox["ymax"] + 50 * y_range
+  
+  # Create the tmap object
+  tmap::tmap_mode("plot")
+  map_plot <- tmap::tm_shape(background_map) +
+    tmap::tm_rgb() +
+    tmap::tm_shape(data_sf) +
+    tmap::tm_text(text = form_column, col = style_column, palette = dark_palette) +
+    tmap::tm_layout(title = plot_title, legend.show = FALSE, bbox = bbox)
+  
+  # Return the tmap object
+  return(map_plot)
+}
+```
+
+```{r}
+create_static_map_tmap(data_list[[1]])
+```
+
+## Make a network
+
+Our network will be made using languages as nodes, which come with locations. We will then use the data in the list to create edges between the nodes.
+
+```{r}
+# Load necessary libraries
+library(dplyr)
+library(tidyr)
 
 
 
+# Function to create edge list for a dataframe
+create_edge_list <- function(df, df_name) {
+  # Clean and transform the data
+  df <- df |> 
+    select(glott_code, style) |> 
+    as_tibble()
+  
+  # Create edge list based on first letter of style
+  edge_list_first_letter <- df |>
+    mutate(first_letter = substr(style, 1, 1)) |>
+    inner_join(., ., by = "first_letter") |>
+    filter(glott_code.x != glott_code.y) |>
+    select(glott_code.x, glott_code.y) |>
+    distinct() |>
+    mutate(type = df_name)
+  
+  # Create edge list based on first three characters of style
+  edge_list_first_three <- df |>
+    mutate(first_three = substr(style, 1, 3)) |>
+    inner_join(., ., by = "first_three") |>
+    filter(glott_code.x != glott_code.y) |>
+    select(glott_code.x, glott_code.y) |>
+    distinct() |>
+    mutate(type = df_name)
+  
+  # Combine both edge lists
+  combined_edge_list <- bind_rows(edge_list_first_letter, edge_list_first_three) |>
+    distinct()
+  
+  return(combined_edge_list)
+}
+
+# Apply function to all dataframes in the list and combine results
+all_edge_lists <- bind_rows(
+  lapply(names(data_list), function(df_name) {
+    create_edge_list(data_list[[df_name]], df_name)
+  })
+)
+
+
+```
+
+```{r}
+# Load necessary libraries
+library(dplyr)
+library(tidyr)
+
+# Subset the data
+data_list_2 <- purrr::map(data_list, ~ {
+  # Select the columns glott_code and style and convert to tibble
+selected_df <- .x %>%
+    as_tibble() %>%   # Convert to tibble
+    select(glott_code, style) %>% # Select the relevant columns
+    drop_na(style)
+  
+  
+  return(selected_df)
+})
+```
+
+```{r}
+
+# Function to create edge list for a dataframe
+create_edge_list <- function(df, df_name) {
+  # Create edge list based on first letter of style
+  df_first_letter <- df |>
+    mutate(first_letter = substr(style, 1, 1))
+  edge_list_first_letter <- df_first_letter |>
+    inner_join(df_first_letter, by = "first_letter") |>
+    filter(glott_code.x != glott_code.y) |>
+    select(glott_code.x, glott_code.y) |>
+    distinct() |>
+    mutate(type = df_name, weight = 1)
+  
+  # Create edge list based on first three characters of style
+  df_first_three <- df |>
+    mutate(first_three = substr(style, 1, 3))
+  edge_list_first_three <- df_first_three |>
+    inner_join(df_first_three, by = "first_three") |>
+    filter(glott_code.x != glott_code.y) |>
+    select(glott_code.x, glott_code.y) |>
+    distinct() |>
+    mutate(type = df_name, weight = 1)
+  
+  # Combine both edge lists
+  combined_edge_list <- bind_rows(edge_list_first_letter, edge_list_first_three) |>
+    distinct()
+  
+  return(combined_edge_list)
+}
+
+# Apply function to all dataframes in the list and combine results
+all_edge_lists <- bind_rows(
+  lapply(names(data_list_2), function(df_name) {
+    create_edge_list(data_list_2[[df_name]], df_name)
+  })
+)
+
+# Summarize duplicates and calculate the weight
+all_edge_lists_summarized <- all_edge_lists |>
+  group_by(glott_code.x, glott_code.y, type) |>
+  summarize(weight = sum(weight), .groups = 'drop')
+```
+
+Now, add the edge list and the node list to a tidygraph network
+
+```{r}
+library(tidygraph)
+
+g <- tbl_graph(edges = all_edge_lists_summarized, directed = FALSE)
+
+plot(g)
+```
 
 <!-- The following line inserts a page break  -->
 
