@@ -112,7 +112,7 @@ The data may contain certain duplicate entries. These need to be removed to avoi
 remove_duplicates <- function(df_list) {
   df_list <- lapply(df_list, function(df) {
     df <- df |> 
-      dplyr::distinct(glott_code, form, .keep_all = TRUE)
+      dplyr::distinct(glott_code, style, .keep_all = TRUE)
     return(df)
   })
   return(df_list)
@@ -269,7 +269,7 @@ save_maps <- function(data_list, form_column = "form", background = "colour") {
 ```{r}
 #| label: fonio
 #| fig-cap: "fonio word forms"
- create_leaflet_map(data_list$iron, background = "bw")
+# create_leaflet_map(data_list$iron, background = "bw")
 ```
 
 Save an html version of all objects
@@ -277,7 +277,7 @@ Save an html version of all objects
 ```{r}
 #| label: save-maps
 #| eval: false
-save_maps(data_list)
+# save_maps(data_list)
 ```
 
 ## Make static maps (for printing etc)
