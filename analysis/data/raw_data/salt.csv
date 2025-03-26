@@ -1,194 +1,84 @@
-﻿indx,glott_code,style,form,t1,t2,desc,retain,,,,,
-indx001,zarm1239,A.2,kiri,cìirì,ciiri,sel,x,,,,,
-indx002,tuar1240  ,T,tesemt,tesŒmt‚,tesŒmt‚,sel,x,,,,,
-indx003,susu1250,F,faux,fàuxé´,fux´,sel,x,,,,,
-indx004,susu1250,A.1,ko,kçøø,køø,sel,x,,,,,
-indx005,koyr1240,A.2,kiri,chiri,chiri,sel,x,,,,,
-indx006,cent2018,A.1,kuro,kjuro,kjuro,sel,x,,,,,
-indx007,koyr1240,A.2,kiri,kirhi,kirhi,Sel,x,,,,,
-indx008,soni1259,S,sappe,sappe,sappe,sel,x,,,,,
-indx009,tama1365,T,tesemt,tesŒmt,tesŒmt,sel,x,,,,,
-indx010,koyr1240,,kiri,ciri,ciri,sel,x,,,,,
-indx011,west2500,A.1,ko,kòo,koo,sel,x,,,,,
-indx012,a.Roth 1453,A.1,ko,c”uru¯ru¯,c”uru¯ru¯,sel,x,,,,,
-indx013,jena1242,A.1,ko,kuø,kuø,sel,x,,,,,
-indx014,koyr1240,A.2,kiri,kiri,kiri,sel,x,,,,,
-indx015,cent2018,Z,laman/mannda,lam•am,lam•am,sel,x,,,,,
-indx016,cent2018,Y,mannda,mannda,mannda,sel,x,,,,,
-indx017,maty1235,N.2,nyimbi,yÏ~ÏmbÌ,yÏ~ÏmbÌ,sel,x,,,,,
-indx018,hain1253,A.2,kiri,x’`l’`,x’`l’`,sel,x,,,,,
-indx019,biss1248,B.2,nye,yè,yè 1.,sel,x,,,,,
-indx020,humb1243,A.2,kiri,ciiri,ciiri,sel,x,,,,,
-indx021,dyul1238,A.1,kuru,kéøg,køg,sel,x,,,,,
-indx022,azer1256,S,sape,safe,safe,sel,x,,,,,
-indx023,azer1256,,,saffa,saffa,sel,x,,,,,
-indx024,azer1256,,,safun,safun,sel,x,,,,,
-indx025,azer1256,,,sangarè,sangarè,sel,x,,,,,
-indx026,azer1256,,,sape,sape,sel,x,,,,,
-indx027,bass1258,H,gyi,ngÄ`l,ngÄl,sel,x,,,,,
-indx028,bass1258,B.2,nyiri,Ñiry,Ñiry,sel,x,,,,,
-indx029,bala1301,,,=-@tÖÓmm,=-@tøømm,sel,x,,,,,
-indx030,bady1239,A.1,kore,måkore,maakore,sel,x,,,,,
-indx031,mand1419,,,pënam,pënam,sel,x,,,,,
-indx032,gamb1252,A.1,korom,xorom,xorom,sel,x,,,,,
-indx033,busa1253,W,wesi,usi,,,x,,,,,
-indx034,boko1267,W,wesi,wusi,,,x,,,,,
-indx035,biss1248,,nye,yè,,,x,,,,,
-indx036,biss1248,,nye,yè,,,x,,,,,
-indx037,maty1235,B.2,nye,yisi,,,x,,,,,
-indx038,maya1281,B.1,nye,nyè,,,x,,,,,
-indx039,beng1286,B.1,nye,nyi'',,,x,,,,,
-indx040,05-11-2-2-14.We,W,we,wé,,,x,,,,,
-indx041,05-2-8.Nw,B.1,ko,o'',,,x,,,,,
-indx042,mann1248,W,we,wè,,,x,,,,,
-indx043,beng1286,B.3/4,bie/wie,biè,,,x,,,,,
-indx044,gagu1242,H,gye,gyè,,,x,,,,,
-indx045,guro1248,W,we,wè,,,x,,,,,
-indx046,yaou1238,W,we,wè,,,x,,,,,
-indx047,dann1241,W,we,wé,,,x,,,,,
-indx048,dann1241,,we,wé,,,x,,,,,
-indx049,mwan1250,W,we,wéy,,,x,,,,,
-indx050,bamb1269,A.1,ko,kogho,,,x,,,,,
-indx051,boko1267,W,wesi,wusı́,,,x,,,,,
-indx052,boko1267,,wesi,w`ısı,,,x,,,,,
-indx053,boko1267,,wesi,w4ú3si,,,x,,,,,
-indx054,biss1248,,nye,j`ɛ,,,x,,,,,
-indx055,biss1248,,nye,j`ɛ,,,x,,,,,
-indx056,biss1248,,nye,j`ɛ,,,x,,,,,
-indx057,maty1235,,nye,j`ı:sɪ̄,,,x,,,,,
-indx058,maty1235,,nye,j`ɪs´í,,,x,,,,,
-indx059,maya1281,,nye,ɲɛ,,,x,,,,,
-indx060,beng1286,,wie,bie,,,x,,,,,
-indx061,tour1242,W,we,wei,,,x,,,,,
-indx062,wann1242,A.1,ko,ɔ,,,x,,,,,
-indx063,guro1248,W,we,wɛ,,,x,,,,,
-indx064,dann1241,,we,wee,,,x,,,,,
-indx065,mwan1250,,we,wɛ,,,x,,,,,
-indx066,gagu1242,H,gyi,gie,,,x,,,,,
-indx067,toro1253  ,C,neN,nɛŋ,nɛ̌ŋ,salt,x, NE_E,,,,
-indx068,tomm1242,D,miye,miyɛⁿ,miⒽyɛⓉⁿ,salt,x, NE_E,,,,
-indx069,donn1239,C,neN,neŋ,něŋ,salt,x, NE_E_SEC_C,,,,
-indx070,yorn1234,C,neN,nɛm,nɛ̌m,salt,x, NE_E_SEC_C,,,,
-indx071,tomm1242,C,neN,nɛm,nɛ̌m,salt,x, NE_E_SEC_C,,,,
-indx072,jams1239,C,neN,nɛm,nɛm,salt,x, NE_E_SEC_SE,,,,
-indx073,perg1234,C,neN,nɛm,nɛ̌m,salt,x, NE_E_SEC_SE,,,,
-indx074,guru1265,C,neN,nɛm,nɛ̌m,salt,x, NE_E_SEC_SE,,,,
-indx075,togo1254,D,miye,mɛ,mɛ̌:,salt,x, NE_E_SEC_SE,,,,
-indx076,jams1239,,neN,nɛm,nɛ̌m,salt,x, NE_E_SEC_SE,,,,
-indx077,dogu1235,C,neN,nem,něm,salt,x, NE_N_NET,,,,
-indx078,dogu1235,,neN,neem,neⓉeⒽm,salt,x, NE_N_NET,,,,
-indx079,tebu1239,C,neN,neme,neⓉmeⒽ,salt,x, NE_N_NET,,,,
-indx080,yand1257  ,C,neN,nɛm,nɛⓉm,salt,x, NE_N_NET,,,,
-indx081,Glottocode:  ,C,neN,nɛmgo,nɛ̌m-goⒽ,salt,x, NE_N_NET,,,,
-indx082,tira1258  ,C,neN,nɛwⁿ,nɛⒽwⁿ,salt,x, NE_N_NET,,,,
-indx083,bent1238,C,neN,nɛm,nɛ̌m,salt,x, NE_N_NW,,,,
-indx084,bank1259,C,neN,nɛm,nɛ̌m,salt,x, NE_N_NW,,,,
-indx085,nang1261,C,neN,nɛmi,nɛⓉ:miⒽ,salt,x, NE_N_NW,,,,
-indx086,momb1254,C,neN,newⁿ,nêwⁿ,salt,x, W,,,,
-indx087,ampa1238,D,miye,mɛnjɛ,mɛⓉnjɛⒽ ,salt,x, W,,,,
-indx088,buno1241,A.1,komunu,komunu,koⒽmuⒽnuⓉ,salt,x, W,,,,
-indx089,pena1270,C,neN,nɛm,nɛⓉm,salt,x, W,,,,
-indx090,sere1260,,jem,jem,sel,Sereer,x,14.5,-16.5,Atlantic_North,Atlantic,Faye 2022
-indx091,egaa1242,A.2,ago,àgò,or,Ega,x,5.57,-5.41,Benue-Congo,Benue-Congo,Hérault (Ed) 1983 (vol. II) :`éga 
-indx092,tagh1234,,,,,Taghzut,,30.546632,-9.707005,Berber,Berber,
-indx093,zena1248,,,,,Zenaga,,17.33,-16,Berber,Berber,
-indx094,tama1365,,tesamt,tesəmtŠa Za,salt,Tamasheq,x,14.2,-2.41,Berber,Berber,"Sudlow, D. 2009"
-indx095,tama1365,,,,,Tamasheq,,19,-1,Berber,Berber,
-indx096,molo1266,,,zetene,salt,Moloko,x,10.79,14.25,Chadic,Chadic,"A grammarof Moloko (2017) Friesen, Dianne"
-indx097,wuzl1236,P,belema,bə̀lə̀mà,sel,Wuzlam,x,10.96,14.14,Chadic,Chadic,Véronique de Combel:  La langue ouldémé
-indx098,hausa1257,K,dleru,Dleru,salt,Hausa,x,11.15,8.78,Chadic,West-Chadic,Modern Tera-English-Hausa Dictionary
-indx099,hausa1257,K,dleru,Dleri ɓutokhndi,"salt, refined",Hausa,x,11.15,8.78,Chadic,West-Chadic,Modern Tera-English-Hausa Dictionary
-indx100,tomm1242,,neN,nɛ̌m,salt,Tommo So Dogon,x,14.5608333,-3.3939333,Dogon_Escarpment,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx101,donn1239,,,,,Donno So Dogon,,14.49455,-3.368,Dogon_Escarpment,Dogon,
-indx102,ampa1238,,,,,Ampari Dogon,,14.15,-3.55,Dogon_West,Dogon,
-indx103,ibis1234,,,,,Ibi So,,14.4768,-3.2668,Dogon_Escarpment,Dogon,
-indx104,buno1241,,,,,Bunoge Dogon,,14.6532333,-3.7936167,Dogon_West,Dogon,
-indx105,pena1270,,,,,Penange,,14.39385,-4.0323833,Dogon_West,Dogon,
-indx106,momb1254,,neN,nêwⁿ,salt,Mombo Dogon,x,14.4,-3.7,Dogon_West,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx107,tira1258,,,,,Tiranige Diga Dogon,x,14.76,-3.7,Dogon_West,Dogon,
-indx108,bond1248,,,,salt,Najamba-Kindige,x,14.95,-3.37,Dogon_North-Plateau,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx109,bond1248,,,,,Najamba-Kindige,,14.9833333,-3.0333333,Dogon_North-Plateau,Dogon,
-indx110,yand1257,C,neN,nɛ̀m,salt,Yanda Dom Dogon,x,14.6471833,-3.1481667,Dogon_North-Plateau,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx111,tebu1239,,,,,Tebul Ure Dogon,,14.66,-3.1,Dogon_North-Plateau,Dogon,
-indx112,dogu1235,,,,,Dogul Dom Dogon,,14.59,-3.57,Dogon_North-Plateau,Dogon,
-indx113,yorn1234,,neN,nɛ̌m,salt,Yorno So,x,14.5627,-3.2353,Dogon_Escarpment,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx114,togo1254,,neN,mɛ̌:,salt,Togo Kan,x,13.933,-3.416,Dogon_Plains,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx115,guru1265,,neN,nɛ̌m,salt,Guru (Mali),x,14.0634,-3.2456333,Dogon_Plains,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx116,perg1234,,neN,nɛ̌m,salt,Perge Tegu,x,14.85205,-3.0218,Dogon_Plains,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx117,jams1239,,neN,nɛm,salt,Jamsay Dogon,x,15.00045,-2.95395,Dogon_Plains,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx118,nang1261,,neN,nɛ̀:mí,salt,Nanga,x,14.8193833,-3.0104333,Dogon_Nangan,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx119,bank1259,,neN,nɛ̌m,salt,Bankan Tey Dogon,x,15.07,-2.91,Dogon_Nangan,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx120,bent1238,,neN,nɛ̌m,salt,Ben Tey Dogon,x,14.8524,-2.9464167,Dogon_Nangan,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx121,toro1253,,neN,nɛ̌ŋ,salt,Toro Tegu Dogon,x,15.0052667,-2.085,Dogon_Escarpment,Dogon,"Heath, Jeffrey (2015): Dogon Comparative Wordlist"
-indx122,tief1244,,,,,Tiefo-Nyafogo-Numudara,,10.85,-4.45,Gur,Gur,
-indx123,tief1242,,,,,Tiefo-Daramandugu,,10.72,-4.53,Gur,Gur,
-indx124,sout2789,,,,,Central Dagaare ,,,-2.52,Gur,Gur,
-indx125,daga1272,,,,,Dagaari Dioula,,11.5,-2.35,Gur,Gur,
-indx126,nort2780,,,,,Northern Dagara,,10.15,-2.8,Gur,Gur,
-indx127,nati1243,,,,,Natioro,,10.7,-5.3,Gur,Gur,
-indx128,bang1363,,,,,Bangime,,14.7984833,-3.76015,Isolate,Isolate,
-indx129,yrew1238,,,,,Yrewe,,5.13,-6.99,Kru,Kru,
-indx130,godi1239,H,gli,glü,sel,Godié,x,5.43,-5.82,Kru,Kru,Petit dictionnaire godié: A sa gwëje zͻͻ! (2004)
-indx131,guib1246,,,,,Guiberoua Béte,,6.29,-6.5,Kru,Kru,
-indx132,dalo1238,G,gibhi,gïbhï,sel,Daloa Bété,x,6.69,-6.64,Kru,Kru,"Gnoléba, Raymond: Parlons Bété"
-indx133,tiag1235,,,,,Tiagbamrin Aizi,,5.28,-4.62,Kru,Kru,
-indx134,inde1240,,,,,Indenie,,6.32,-3.31,Kwa,Kwa,
-indx135,nzim1238,,neN,ɲ̀ɟɩ̃̀ĩɩ̃́,sel,Nzima,x,5.2,-2.6,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : nzéma
-indx136,mbat1247,,-ze,ṍɟē,sel,Mbato,x,5.34,-3.7,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : mbatto
-indx137,krob1245,,mwe,m̀mwɛ̃̄,sel,Krobu,x,5.86,-4.48,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : krobou
-indx138,ebri1238,B.1,neN,ɛ̃́njè,sel,Ebrié,x,5.37,-4.03,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : ébrié
-indx139,anyi1245,B.1,neN,ǹɟɩ̃̂,sel,Anyin,x,6.73,-3.5,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : agni
-indx140,abid1235,,mwe,múhú,sel,Abidji,x,5.67,-4.58,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : abidji
-indx141,abee1242,E,go,ŋ̀gō,sel,Abé,x,5.9,-4.38,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : abbey
-indx142,abro1238,B.1,neN,ǹɟɩ̃́nɩ̃́,sel,Abron,x,7.72,-2.50,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : abron
-indx143,abur1243,,mwe,m̀mɛ̀,sel,Abure,x,5.22,-3.64,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : abouré
-indx144,adio1239,,mok,mók`,sel,Adioukrou,x,5.38,-4.53,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : adioukrou
-indx145,alla1248,E,gwe,n̄gɥɛ̀,sel,Alladian,x,5.22,-4.43,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : alladian
-indx146,atti1239,,-ze,dʒɛ̃̀,sel,Attié,x,6.00,-3.82,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : attié
-indx147,avik1243,,sa,ɛ́sã́,sel,Avikam,x,5.16,-5.25,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : avikam 
-indx148,baou1238,B.2,neN,ɲ ɟĩ ,sel,Baoulé,x,5.43,-4.77,Kwa,Kwa,Hérault (Ed) 1983 (vol. II) : baoulé 
-indx149,beti1248,,,,,Beti,,5.26,-3.29,Kwa,Kwa,
-indx150,guro1248,,,,,Guro,,7.35,-6.31,Mande_Southern,Mande,
-indx151,soni1260,,,,,Soninke,,14.86,-12.48,Mande_Soninke-Bozo,Mande,
-indx152,dyul1238,,,,,Kong Jula,,9.83,-4.67,Mande_East-Manding,Mande,
-indx153,mend1266,,,,,Mende (Sierra Leone),,7.91,-10.99,Mande_Mende-Loko,Mande,
-indx154,west2500,,,,,Western Maninkakan,,13.26,-12.9,Mande_West-Manding,Mande,
-indx155,tiey1235,,,,,Tiéyaxo Bozo,,14.25,-5,Mande_Soninke-Bozo,Mande,
-indx156,xaas1235,,,,,Xaasongaxango,,14.1,-10.95,Mande_West-Manding,Mande,
-indx157,xaas1235,,,,,Xaasongaxango,,14,-10.95,Mande_West-Manding,Mande,
-indx158,koro1306,,,,,Koro (Côte d'Ivoire),,9,-5.72,Mande_East-Manding,Mande,
-indx159,koya1253,,,,,Koyaga,,8.31,-6.22,Mande_East-Manding,Mande,
-indx160,jogo1242,,,,,Jogo,,7.92,-2.38,Mande_Manding-Jogo,Mande,
-indx161,biss1248,,,,,Bissa,,11.5,-0.5,Mande_Eastern-Mande,Mande,
-indx162,jalk1242,A,ko ,kòò,salt,Jalkunan,x,10.5,-5.2,Mande_Manding-Jogo,Mande,"Heath, Jeffrey (2017): A Grammar of Jalkunan (Mande, Burkina Faso)"
-indx163,seek1238,,,,,Seeku,,11.13,-4.58,Mande_Western,Mande,
-indx164,sann1238,,,,,San,,12.7,-2.9,Mande_East-Manding,Mande,
-indx165,bamb1269,A,ko,"koua, kogo",sel,Bambara,x,10.11,-6.99,Mande_East-Manding,Mande,"Sauvant, Emilio Fernando 1926"
-indx166,bamb1269,,,fardɩ,Barre de sel ,Bambara,x,10.11,-6.99,Mande_East-Manding,Mande,"Sauvant, Emilio Fernando 1926"
-indx167,west2500,,,,,Western Maninkakan,,13.57,-12.8,Mande_West-Manding,Mande,
-indx168,mand1436,A,ko,koo-foroo,table salt,Mandinka,x,13.26,-12.9,Mande_West-Manding,Mande,Keeketo Maane
-indx169,koro1305,,,,,Korondougou,,13.8144862,-3.4377327,Mande_Soninke-Bozo,Mande,
-indx170,koty1238,,,,,Kotya,,14.75,-4.5,Mande_Soninke-Bozo,Mande,
-indx171,pond1250,,,,,Pondori,,13.911,-4.562,Mande_Soninke-Bozo,Mande,
-indx172,hain1253,,,,,Hainyaxo Bozo,,13.75,-5.75,Mande_Soninke-Bozo,Mande,
-indx173,supy1237,,,,,Supyire Senoufo,,11.63,-5.88,Senufo,Senufo,
-indx174,zarm1239,,,,,Zarma,,12.86,2.41,Songhay_Eastern,Songhay,
-indx175,dend1243,,,,,Dendi (Benin),,11.67,3.49,Songhay_Eastern,Songhay,
-indx176,humb1243,,,,,Humburi Senni Songhay,,15.2778333,-1.6999833,Songhay_Eastern,Songhay,
-indx177,nucl1240,,tna,"tna, tnányen",salt,Mumuye,x,8.87,11.72,Adamawa_Central,Volta-Congo,"Shimizu, Kiyoshi: The Zing Dialect of Mumuye"
-indx178,beng1286,,,,,Beng,,7.78,-4.24,Mande_Southern,,
-indx179,biss1248,,nye,yɛ̀,sel,Bissa,x,10.43,-1.67,Mande_Eastern-Mande,,"Vanhoudt, Bettie (1999):  LEXIQUE BISA-FRANÇAIS"
-indx180,boko1266,W,wisi,wisi,salt,Boko (Benin),x,10.52,3.72,Mande_Eastern-Mande,,"Jones, Ross"
-indx181,boko1267,,,,,Bokobaru,,9.53,3.80,Mande_Eastern-Mande,,
-indx182,busa1253,,wisi,wisi,salt,Busa,x,9.91,4.40,Mande_Eastern-Mande,,"Jones, Ross 2004"
-indx183,dann1241,,,,,Dan,,7.23,-8.25,Mande_Southern,,
-indx184,gagu1242,,,,,Gban,,6.41,-5.52,Mande_Southern,,
-indx185,maty1235,,,,,Matya Samo,,13.10,-3.25,Mande_Eastern-Mande,,
-indx186,maya1281,,,,,Maya Samo,,13.18,-2.73,Mande_Eastern-Mande,,
-indx187,mwan1250,,wisi,wɛ n,sel,Mwan,x,7.88,-5.95,Mande_Southern,,"Perekhvalskaya, Elena & Yegbé, Moïse. (2019): Dictionnaire mwan-français. Mandenkan"
-indx188,sout2844,,,,,Southern Samo,,12.71,-2.91,Mande_Eastern-Mande,,
-indx189,tour1242,,,,,Toura (Côte d'Ivoire),,7.77,-7.33,Mande_Southern,,
-indx190,wann1242,,,,,Wan,,7.89,-5.82,Mande_Southern,,
-indx191,cent2050,,,,,Central-Kanuri,,11.80,13.13,Saharan,,
-indx192,yoru1245,Y,iyo,iyọ̀,salt,Yoruba,x,7.15,3.67,Benue-Congo,,Kayode J. Fakinlede
-indx193,moss1236,,yaar,yaarem,. gros cristaux de sel,Mossi,x,Nov 95,Nov 95,Gur,,Dictionnaire mooré – français - English (2021)
+﻿indx,glott_code,style,form,t1
+indx141,abee1242,E,go,ŋ̀gō
+indx140,abid1235,W,mwe,múhú
+indx142,abro1238,B.1,neN,ǹɟɩ̃́nɩ̃́
+indx143,abur1243,W,mwe,m̀mɛ̀
+indx144,adio1239,X,mok,mók`
+indx145,alla1248,E,gwe,n̄gɥɛ̀
+indx087,ampa1238,D,miye,mɛnjɛ
+indx139,anyi1245,B.1,neN,ǹɟɩ̃̂
+indx146,atti1239,Z,–ze,dʒɛ̃̀
+indx147,avik1243,X,sa,ɛ́sã́
+indx022,azer1256,S,sape,safe
+indx030,bady1239,A.1,kore,måkore
+indx050,bamb1269,A.1,ko,kogho
+indx084,bank1259,C,neN,nɛm
+indx148,baou1238,B.2,neN,ɲ ɟĩ 
+indx027,bass1258,H,gyi,ngÄ`l
+indx028,bass1258,B.2,nyiri,Ñiry
+indx039,beng1286,B.1,nye,nyi''
+indx043,beng1286,B.3/4,bie/wie,biè
+indx083,bent1238,C,neN,nɛm
+indx019,biss1248,B.2,nye,yè
+indx035,biss1248,B,nye,yè
+indx180,boko1266,W,wisi,wisi
+indx088,buno1241,A.1,komunu,komunu
+indx033,busa1253,W,wesi,usi
+indx006,cent2018,A.1,kuro,kjuro
+indx015,cent2018,Z,laman/mannda,lam•am
+indx016,cent2018,Y,mannda,mannda
+indx132,dalo1238,G,gibhi,gïbhï
+indx047,dann1241,W,we,wé
+indx077,dogu1235,C,neN,nem
+indx069,donn1239,C,neN,neŋ
+indx021,dyul1238,A.1,kuru,kéøg
+indx138,ebri1238,B.1,neN,ɛ̃́njè
+indx091,egaa1242,A.2,ago,àgò
+indx044,gagu1242,H,gye,gyè
+indx032,gamb1252,A.1,korom,xorom
+indx130,godi1239,H,gli,glü
+indx045,guro1248,W,we,wè
+indx074,guru1265,C,neN,nɛm
+indx018,hain1253,A.2,kiri,x’`l’`
+indx098,haus1257,K,dleru,Dleru
+indx020,humb1243,A.2,kiri,ciiri
+indx162,jalk1242,A,ko ,kòò
+indx072,jams1239,C,neN,nɛm
+indx013,jena1242,A.1,ko,kuø
+indx005,koyr1240,A.2,kiri,chiri
+indx137,krob1245,W,mwe,m̀mwɛ̃̄
+indx168,mand1436,A,ko,koo-foroo
+indx042,mann1248,W,we,wè
+indx017,maty1235,N.2,nyimbi,yÏ~ÏmbÌ
+indx037,maty1235,B.2,nye,yisi
+indx038,maya1281,B.1,nye,nyè
+indx136,mbat1247,Z,–ze,ṍɟē
+indx086,momb1254,C,neN,newⁿ
+indx193,moss1236,X,yaar,yaarem
+indx049,mwan1250,W,we,wéy
+indx085,nang1261,C,neN,nɛmi
+indx177,nucl1240,X,tna,"tna, tnányen"
+indx135,nzim1238,C,neN,ɲ̀ɟɩ̃̀ĩɩ̃́
+indx089,pena1270,C,neN,nɛm
+indx073,perg1234,C,neN,nɛm
+indx090,sere1260,X,jem,jem
+indx008,soni1259,S,sappe,sappe
+indx003,susu1250,F,faux,fàuxé´
+indx004,susu1250,A.1,ko,kçøø
+indx009,tama1365,T,tesemt,tesŒmt
+indx079,tebu1239,C,neN,neme
+indx082,tira1258  ,C,neN,nɛwⁿ
+indx075,togo1254,D,miye,mɛ
+indx068,tomm1242,D,miye,miyɛⁿ
+indx071,tomm1242,C,neN,nɛm
+indx067,toro1253  ,C,neN,nɛŋ
+indx061,tour1242,W,we,wei
+indx002,tuar1240  ,T,tesemt,tesŒmt‚
+indx062,wann1242,A.1,ko,ɔ
+indx011,west2500,A.1,ko,kòo
+indx097,wuzl1236,P,belema,bə̀lə̀mà
+indx110,yand1257,C,neN,nɛ̀m
+indx046,yaou1238,W,we,wè
+indx070,yorn1234,C,neN,nɛm
+indx192,yoru1245,Y,iyo,iyọ̀
+indx001,zarm1239,A.2,kiri,cìirì

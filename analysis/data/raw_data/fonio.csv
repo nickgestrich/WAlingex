@@ -1,175 +1,144 @@
-﻿glott_code,style,form,t1,t2,gloss,h1,h2,,,,,,,
-bass1258,A.1.a,fon-ny,fu`nya´Ñ,funyaÑ,"Digitaria exilis, fonio",bh,,,,,,,,
-pula1262,C,sereme,seremme,seremme,Digitaria exilis (fonio),,bf-Dj,,,,,,,
-zarm1239,D,hargey,hárgéy,hargey,fonio (espèce de -) ,hh,,,,,,,,
-tada1238,E,gan-,gaÑƒi,gaNSi,fonio,S'S,,,,,,,,
-tada1238,F,ifiban,iƒiiban,iSiiban,fonio,SS'S,,,,,,,,
-tada1238,F,esiban,ësi(i)ban,ësi(i)ban,fonio,'SSS,,,,,,,,
-zarm1239,E,gan-,gaÑsi,gaÑsi,fonio,bh,,,,,,,,
-tada1238,F,ifiban,aaƒib / 'iƒiban,aaSib / 'iSiban,fonio,'SS,,,,,,,,
-tada1238,F,ifiban,'iƒiban / iƒib'aanen,'iSiban / iSib'aanen,fonio,'SS,,,,,,,,
-tada1238,F,ifiban,iƒiban,iSiban,fonio sauvage (Panicum long. florus ou spinosa),'SSS,,,,,ss.Lc_tdk 199,,,
-tagd1238,F,ifiban,isiban  / iÑsibÆn,isiban  / iNsibEn,fonio,,,,,,ss.Nc_tsw  535,,,
-tuar1240  ,F,ifiban,iƒiban,iƒiban,fonio,, ,,,,b.Nic 512,,,
-susu1250,A.1.b,fon-d,féundéen,funden,"fonio, rougeole",hh,,,,,m.Tour 1145,,,
-susu1250,A.1.b,fon-d,féundéenjéi,fundenji,"fonio, rougeole",hhh,,,,,m.Tour 1146,,,
-mane1267,A.2.b,fon-d,féidêi,fidi,"fonio préparé, plat de fonio",hd,,,,,m.Greg 383,,,
-mane1267,A.1.a,fon-ny,féonéin,fonin,fonio non préparé,hh,,,,,m.Greg 421,,,
-koyr1242  ,E,gan-,ganƒi / ganso,ganƒi / ganso,"Panicum Lae ; graminée de la brousse (petite) , fonio",hh / .h,,,,,s.Will 66,,,
-dend1243,G,densinbi,deÑsib(w)øÑtÆ,deÑsib(w)øÑtÆ,fonio,,,,,,s.Nic_ddi 67,,,
-soni1259,A.1.a,fon-ny,fuñanNo,fuñanNo,fonio,,,,,,m.Meil 478,,,
-humb1243,E,gan-,gaÑso,gaÑso,fonio,bm,,,,,s.Nic_hbr 314,,,
-west2500,A.2.b,fin-d,fíndi,findi,fonio,h.,,,,,m.Cres 1132,,,
-m.Dage 1359,A.1.a,fon-ny,fuo˜,fuo˜,fonio (Digitaris exilis),,n.,,,,m.Dage 1359,,,
-jena1242,H,hantaya,háÑtááyà ,haÑtaaya,fonio,hhhb,,,,,s.Zima 1290,,,
-maty1235,A.1.a,fon-ny,f’¥rÀ¥~ [fwÀ~¥À~],f’¥rÀ¥~ [fwÀ~¥À~],fonio,,,,,,m.Ebe_smo 732,,,
-hain1253,A.1.a,fon-ny,fw’~`¥,fw’~`¥,fonio,,,,,,m.Ebe_klg 449,,,
-humb1243,E,gan-,ganƒi,ganƒi,fonio,,,,,,s.Haid 3080,,,
-zarm1239,E,gan-,gèÑsì,geÑsi,fonio,bb,,,,,s.Hana 1451,,,
-bass1258,A.1.a,fon-ny,fu´nye´,funye,fonio,bhh,65,,,,f.Ferr_kny 471,,,
-bass1258,A.1.a,fon-ny,fu´nye´ ri´ti`,funye riti,fonio sauvage,hhhb,180.181,,,,f.Ferr_kny 472,,,
-bass1258,A.1.a,fon-ny,fu´nye´ ; ro´b^År,funye ; rob^År,fonio hâtif,bhh ; bhd,65,,,,f.Ferr_kny 473,,,
-east2431,A.2.a,fin-ny,finji,finji,fonio (panicum longiflorum),,,,,,s.Trao 981,,,
-east2431,E,gan-,ganchi,ganchi,fonio sauvage,,ngaynsi,,,,s.Trao 1084,,,
-east2431,E,gan-,gaynchi,gaynchi,fonio sauvage,,ngaynsi,,,,s.Trao 1118,,,
-mand1419,J,uruet,urûët,urûët,fonio,,,,,,f.Buis_mjkB 1239,,,
-kuwa1246,B.1,pon-,ɛ-bɔɔɲa,ɛbɔɔɲa,"petit mil, fonio [dial. : Yamáakey]",Jóola Kujamutay,boonya,Kuwaataay,12.48,-16.75,Atlantic_North-Central,Atlantic,3533,Sapir 1970 : Jóola Kujamutay
-gusi1246,A.2.b,fin-d,ɛ-fɩndɔ,ɛfɩndɔ,fonio,Joola Gusilay,finde,Gusilay,12.78,-16.5,Atlantic_Bak,Atlantic,15591,Sapir 1965 : Joola Gusilay
-bedi1235,A.1.b,fon-d,fɔ́ndɛ́ŋ,fɔ́ndɛ́ŋ,fonio,Bedik,fonde,Bedik,12.75,-12.48,Atlantic_North,Atlantic,67298,Ferry 1991 : bedik
-bady1239,B.1,pon-,pooɲa,pooɲa,fonio.,Badiaranke,poonya,Jaad-Badyara,12.64,-13.48,Atlantic_North,Atlantic,108634,Meyer 2001 : badiaranke
-bala1302,J,wura,wúrā,wúrā,plante sp. (fonio),Balante-fca (ganja),wura,Balanta-Ganja,12.54,-15.67,Atlantic_Bak,Atlantic,125345,Ndiaye-Corréard 1970 : balante-fca (ganja)
-dend1243,H,hantaya,háŋtáájà,háŋtááyà,fonio,Dendi,han,Dendi (Benin),11.67,3.49,Songhay_Eastern,Songhay,131202,Zima 1994 : dendi
-zarm1239,F,gen-,ɡèŋsì,gèŋsì,fonio,Kaado (Ayorou-Goungokore),gen,Zarma,14.47,0.87,Songhay_Eastern,Songhay,183004,Seydou Hanafiou 1995 : kaado (Ayorou-Goungokore)
-mand1436,A.2.b,fin-d,fíndì,fíndì,fonio,Mandinka,finde,Mandinka,13.26,-12.9,Mande_West-Manding,Mande,211176,Creissels 2011 : mandinka
-kobi1241,A.2.b,fin-d,findo,findo,fonio,Nyun-kas,finde,Kobiana,13.53,-14.45,Atlantic_North-Central,Atlantic,220868,Bühnen 1988 : nyun-kas
-sigi1234,A.1.b,fon-d,fōōɗə̄,fōōɗə̄,acha ; hungry rice,Guus (Sigidi),fonde,Sigidi,9.67,9.35,Chadic_West,Chadic,237729,Caron 2001 : Guus (Sigidi)
-bomu1247,B.2,pen-,pènù,pènù / pèré,"fonio, Digitaria exilis",Boore,pen,Bomu,12.38,-4.54,Gur_Central,Gur,274617,Bloemarts 2012 : boore
-bomu1247,B.2,pen-,pèré,pèré,"fonio, Digitaria exilis",Boore,pen,Bomu,12.38,-4.54,Gur_Central,Gur,274624,Bloemarts 2012 : boore
-west2500,A.2.b,fin-D,fìndì,fìndì,fonio,Maninka du Niokolo,finde,Western Maninkakan,13.57,-12.8,Mande_West-Manding,Mande,458062,Creissels & Camara 2013 : maninka du Niokolo
-pula1262,A.1.a,fon-ny,foɲɲe,foɲɲe,fonio (Digitaria exilis). [[spéc.] ~ho ; [dial.] fonnyo ‘FL’ ; seremme ‘M’.],Pular,fon,Pular,12.18,-12.73,Atlantic_North,Atlantic,520426,Bah 2009 : pular
-nalu1240,B.2,pin,pindi,pindi,fonio,Nalu,pin,Nalu,11.04,-14.82,Atlantic_North,Atlantic,531618,Seidel 2013 : Nalu
-bull1247,B.2,pen-,pénɛ̀,pénɛ̀,"fonio, millet (Pennisetum leonis)",Mani,pen,Mmani,9,-13.16,Mel_Southern,Mel,665849,Childs 2012 : Mani
-sere1260,A.1.a,fon-ny,fooɲo,fooɲo,"petite graminée qui pousse à l'état sauvage dans la boucle du Niger ; tige de 35cm maxi se terminant par 2 ou 3 épis longs et frêles couverts de petites graines grisâtre, Digitaris, exilis STAPF, millet, fonio [NB. il est cultivé, en grand, par des Manding du Mali (soudan français) qui en font quelques petits champs au Sénégal ; il en existe plusieurs variétés, les + hatives, semées au début de la saison des pluies, peuvent être récoltées 3 ou 4 mois après... ; Mand. fooño]",Sereer,fon,Sereer,14.5,-16.5,Atlantic_North,Atlantic,763270,Crétois 1973/77 : sereer
-bala1302,A.2.b,fin-d,fíndì,fíndì,fonio (en grains),Balante ganja,fin,Balanta-Ganja,12.54,-15.67,Atlantic_Bak,Atlantic,780581,Creissels & Biaye 2015 : balante ganja
-mama1271,A.2.b,fin-ny,fenɛ̰,fenɛ̰,fonio,Mamara,fen,Mamara Senoufo,12.49,-5.28,Senufo,Senufo,783562,APLM 2009 : Mamara
-mama1271,A.2.b,fin-ny,fɛnɛ̰,fɛnɛ̰,fonio,Mamara,fen,Mamara Senoufo,12.49,-5.28,Senufo,Senufo,783581,APLM 2009 : Mamara
-mama1272,A.2.b,fin-ny,finɛ̰,finɛ̰,fonio,Mamara,fin,Mamara Senoufo,12.49,-5.28,Senufo,Senufo,783613,APLM 2009 : Mamara
-bamb1270,A.2.b,fin-ny,fínḭ́,fínḭ́,"Digitaria exilis, fonio, éleusine",Bambara,fin,Bambara,10.11,-6.99,Mande_East-Manding,Mande,896562,Dumestre 2011 : bambara
-turk1306,A.1.c,fon-ny,fomw / fomba,fomw / fomba,fonio,Tchourama,fon,Turka,10.71,-4.92,Gur_Central,Gur,997758,SIL Burkina 2003 : tchourama
-lele1266,A.1.b,fon-d,fóndé,fóndé,Digitaria exilis fonio m / fonio,Lélé,fon,Lele (Guinea),8.98,-10.37,Mande_Central,Mande,1008774,Vydrine 2009 : lélé
-sout2840,A.1.c,fon,fān,fān,Fonio.,Bobo,fan,Southern Bobo Madaré,11.54,-4.26,Mande_Western,Mande,1023044,Le Bris & Prost 1981 : bobo
-soni1259,A.3.a,hun-,húɲáŋŋè,húɲáŋŋè,fonio,Soninke,hun,Soninke,14.86,-12.48,Mande_Soninke-Bozo,Mande,1042101,Creissels 1996 : soninke
-nati1243,A.1.c,fon,fóŋɡí,fóŋgí,fonio,Negeni,fon,Natioro,10.72,-5.2,Gur_Central,Gur,1063255,Sawadogo 2002 : Negeni
-nati1243,A.1.c,fon,fòŋké,fòŋké,fonio,Sourani,fon ,Natioro,10.7,-5.3,Gur,Gur,1063720,Sawadogo 2002 : Sourani
-kaou1238,A.1.c,fin,fééná̰,fééná̰,fonio,Timba,fin,Kaouara-Timba-Sindou-Koroni,10.7,-5.2,Gur,Gur,1063951,Sawadogo 2002 : Timba
-maty1235,B.2,pin,piini,piini,fonio,Matya,pin,Matya Samo,13.1,-3.25,Mande_Eastern,Mande,1099945,Morris et al. 2011 : Matya
-seek1238,A.1.c,fon,fón̏,fó (n̏),fonio,Sembla,fon ,Seeku,11.13,-4.58,Mande_Western,Mande,1103355,Prost 1971 : sembla
-sann1238,B.2,pin,pi,pi,fonio,San,pin,San,12.7,-2.9,Mande_East-Manding,Mande,1105679,SIL Burkina 2003 : san
-seek1238,A.1.c,fon,fôn,fôn,fonio (cultivated grain),Seenku,fon ,Seeku,11.13,-4.58,Mande_Western,Mande,1142221,McPherson 2018 : Seenku
-jalk1242,A.2.c,fin,fīnī,fīnī,fonio (grain) / fonio (céréale),Jalkunan,fin,Jalkunan,10.54,-5.22,Mande_Western,Mande,1146331,Heath 2017 : Jalkunan
-kaka1265,A.1.b,fon-d,fóndó,fóndó,fonio m // fonio // фо́нио,Kakabe,fon ,Kakabe,10.6,-11.44,Mande_Western,Mande,1150496,Vydrina 2018 : kakabe
-mwan1250,A.2.b,fin-d,fíɗíŋ́,fíɗíŋ́,Digitaria exilis fonio,Mwan,finde,Mwan,7.88,-5.95,Mande_Southeastern,Mande,1176229,Perekhvalskaya & Yegbe 2018 : mwan
-xaas1235,A.1.b,fon-d,fúndí,fúndí,fonio,Khassonké,fon ,Xaasongaxango,14.1,-10.95,Mande_West-Manding,Mande,1249975,Tveit & Dansoko 1993 : khassonké
-mixi1241,A.1.b,fon-d,fóndé,fóndé,"fonio, le.",Mɔgɔfin,fon ,Mixifore,10.68,-14.38,Mande_Central,Mande,1253021,Polinder & Janse 2009 : Mɔgɔfin
-gusi1246,B.3,boona,ɛ-bɔɔɲa,ɛbɔɔɲa,fonio,Gusiilaay,boonya,Gusilay,12.77,-16.48,Atlantic_Bak,Atlantic,1292557,GIE CLOA & SIL 2018 : gusiilaay
-jola1263,B.3,boona,ɛ-bɔɔɲa,ɛbɔɔɲa,fonio,Diola Fogny,boonya,Jola-Fonyi,12.76,-15.74,Atlantic_Bak,Atlantic,1302578,Coly et al. 2008 : Diola Fogny
-jola1263,,fele,e-fələb,efələb,fonio,Diola Fogny,fel,Jola-Fonyi,12.76,-15.74,Atlantic_Bak,Atlantic,1303047,Coly et al. 2008 : Diola Fogny
-guin1254,,b'in,ɓíníŋ,ɓíníŋ,míniŋ fonio,Kpele de Guinée,b'in,Guinea Kpelle,7.93,-8.99,Mande_Western,Mande,1324631,Konoshenko 2020 : kpele de Guinée
-guin1254,,min,míníŋ,míníŋ,fonio,Kpele de Guinée,,Guinea Kpelle,7.93,-8.99,Mande_Western,Mande,1326572,Konoshenko 2020 : kpele de Guinée
-mend1266,A.1.b,fon-d,fùndé,fùndé,"hungry millet, fundi",Mende,fun,Mende (Sierra Leone),7.91,-10.99,Mande_Mende-Loko,Mande,1330053,Innes 1969 : Mende
-mend1266,B.1,pot#fod,póté,póté,"hungry millet, fundi",Mende,PO ,Mende (Sierra Leone),7.91,-10.99,Mande_Mende-Loko,Mande,1335708,Innes 1969 : Mende
-dyul1238,A.1.b,fon-d,fó̰dí,fó̰dí,fonio,Dioula (Kong),PO ,Kong Jula,9.83,-4.67,Mande_East-Manding,Mande,1337672,Sangare 1984 : Dioula (Kong)
-zial1235,B.1,pod,pò̰dè,pò̰dè,fonio | fonio,Zialo,PO ,Zialo,8.43,-9.51,Mande_Western,Mande,1340650,Babaev 2010 : Zialo
-senu1239,A.1.c,fin-X,fe,fe,fonio,Senoufo de Kolia,fe,Senufo,9.77,-6.46,Senufo,Senufo,1367770,Rongier 2003 : senoufo de Kolia
-igoo1238,K,wubi,ā-wúbī,ā-wúbī,fonio,Igo,wub,Igo,7.25,0.68,Kwa,Kwa,1369432,Gblem 1995 : igo
-bamb1269,A.2.c,fin-NY,fíní,fíní,fonio,Fuladugukakan,fin,Bambara,12.88,-8.99,Mande_East-Manding,Mande,1432569,Diarra 1992 : fuladugukakan
-ampa1238,B.1,pon-,pɔ̰́ɔ̰̀,pɔ̂:ⁿ,fonio,Ampari,po,Ampari Dogon,14.15,-3.55,Dogon_West,Dogon,50550-ampa1238-1,Heath et al. 2017b
-bank1259,B.1,pon-,pɔ̰̌,pɔ̌ⁿ,fonio,Bankan_Tey,po,Bankan Tey Dogon,15.07,-2.91,Dogon_Nangan,Dogon,50550-bank1259-1,Heath et al. 2017b
-dogu1235,B.1,pon-,pɔ́ŋɔ́,pɔ́ŋɔ́,fonio,"Dogul Dom (Bendiely, BC)",po,Dogul Dom Dogon,14.59,-3.57,Dogon_North-Plateau,Dogon,50550-dogu1235-1,Heath et al. 2017b
-donn1239,B.1,pon-,pɔ̀ŋɔ́,pɔ̀ŋɔ́,fonio,Donno_So,po,Donno So Dogon,14.49455,-3.368,Dogon_Escarpment,Dogon,50550-donn1238-1,Heath et al. 2017b
-ibis1234,B.1,pon-,pɔ̰̀ɔ̰́,pɔ̌:ⁿ,fonio,Ibi_So,po,Ibi So,14.4768,-3.2668,Dogon_Escarpment,Dogon,50550-ibis1234-1,Heath et al. 2017b
-jams1239,B.1,pon-,pɔ̀ŋɔ́,pɔ̀ŋɔ́,fonio,Jamsay_Douentza,po,Jamsay Dogon,15.00045,-2.95395,Dogon_Plains,Dogon,50550-jams1239-1,Heath et al. 2017b
-momb1254,B.1,pon-,pɔ̰́ɔ̰̀,pɔ̂:ⁿ,fonio,Mombo,po,Mombo Dogon,14.4,-3.7,Dogon_West,Dogon,50550-momb1254-1,Heath et al. 2017b
-bond1248,B.1,pon-,pɔ̰̀ɔ̰́,pɔ̌:ⁿ,fonio,Nanga,po,Najamba-Kindige,14.95,-3.37,Dogon_North-Plateau,Dogon,50550-nang1261-1,Heath et al. 2017b
-pena1270,B.1,pon-,pɔ́ɔ́-ŋɡè,pɔ́:ŋgè,fonio,Penange,po,Penange,14.39385,-4.0323833,Dogon_West,Dogon,50550-pena1270-1,Heath et al. 2017b
-perg1234,B.1,pon-,pɔ̰̀ɔ̰́,pɔ̌:ⁿ,fonio,Perge_Tegu,po,Perge Tegu,14.85205,-3.0218,Dogon_Plains,Dogon,50550-perg1234-1,Heath et al. 2017b
-togo1254,B.1,pon-,pɔ̀ŋɔ́,pɔ̀ŋɔ́,fonio,Togo_Kan,po,Togo Kan,13.933,-3.416,Dogon_Plains,Dogon,50550-togo1254-1,Heath et al. 2017b
-tomm1242,B.1,pon-,pɔ̰̀ɔ̰́,pɔ̀ɔ́ⁿ,fonio,Tommo_So,po,Tommo So Dogon,14.5608333,-3.3939333,Dogon_Escarpment,Dogon,50550-tomm1242-1,Heath et al. 2017b
-yorn1234,B.1,pon-,pɔ̰̀ɔ̰́,pɔ̌:ⁿ,fonio,Yorno_So,po,Yorno So,14.5627,-3.2353,Dogon_Escarpment,Dogon,50550-yorn1234-1,Heath et al. 2017b
-bang1363,K,wii,wīī-bɛ̀,wīī-bɛ̀,fonio,Bangime,,Bangime,14.7984833,-3.76015,Isolate,Isolate,50559-bang1363-1,"Heath, Hantgan, & Elders 2018b"
-bent1238,B.1,pon-,pɔ̌-j̃,pɔ̌yⁿ,fonio,Ben_Tey,,Ben Tey Dogon,14.8524,-2.9464167,Dogon_Nangan,Dogon,fonio-01,Heath et al. 2017
-guru1265,B.1,pon-,pɔ̀ŋɔ́,pɔ̀ŋɔ́,fonio,Gourou,PO ,Guru (Mali),14.0634,-3.2456333,Dogon_Plains,Dogon,fonio-02,Heath et al. 2017
-bond1248,B.1,pon-,pɔ̀ŋɛ́-ŋɡó,pɔ̀ŋɛ́-ŋgó,fonio,Najamba,PO ,Najamba-Kindige,14.95,-3.37,Dogon_North-Plateau,Dogon,fonio-03,Heath et al. 2017
-tond1249,A.1.c,fin-NY,fíŋɡì,fíŋgì,cultivated fonio (grain),Tondi Songway Kiini,,Tondi Songway Kiini,15.26,-2.82,Songhay_Eastern,Songhay,fonio-04,Heath 2005
-humb1243,C,serembe,sérémb-ò,sérémb-ò,fonio (cultivated grain),Humburi Senni,SEREMBE,Humburi Senni Songhay,15.2778333,-1.6999833,Songhay_Eastern,Songhay,fonio-05,Heath 2015
-jena1242,B.1,puw,pùwɔ̰́,pùwɔ́ⁿ,fonio (grain),Jenaama,,Jenaama Bozo,14.79,-3.82,Mande_Soninke-Bozo,Mande,fonio-06,Heath 2022
-maas1239,C,serembe,seremmbe,seremmbe,fonio,Fulfulde,SEREMBE,Maasina Fulfulde,14.49205,-3.6150667,Atlantic_North,Atlantic,fonio-07,Osborn et al. 1993
-soni1259,A.2.d,fon-ny,fuɲanɲo,fuñanño,fonio,Soninke,,Soninke,14.86,-12.48,Mande_Soninke-Bozo,Mande,fonio-08,Diagana 2013
-koro1298,B.2,pen-,peŋɡ-,peŋg-,"noun. grain of fonio, (pl.) fonio (Digitaria exilis); fr: graine de fonio; (pl.) fonio (Digitaria exilis); dt: Foniokorn; (Pl.) Fonio (Digitaria exilis). [Note: White fonio (Digitaria exilis) is common among the Koromba, but black fonio (Digitaria iburua) is not.]",Koromfe,PONGO,Koromfé,14.05,-1.96,Gur_Central,Gur,fonio-09,Rennison 2018
-anyi1245,A.2.b,fon,ńfônì,ńfônì,Digitaria exilis  Stapf [family ],ANYI-ANUFO,nfon,,6.32,-3.31,,,,
-baat1238,B.1,pod,podgi,podgi,Digitaria exilis  Stapf [family ],BAATONUN,pon-,,9.63,3.00,,,,
-bala1301,A.2.b,fin,fenhe,fenhe,Digitaria exilis  Stapf [family ],BALANTA,fen,,11.82,-15.32,,,,
-bass1258,A.2.d,fon-ny,funyaŋ i-бanax,funyaŋ i-бanax,Digitaria exilis  Stapf [family ],BASARI,fun,,12.45,-13.35,,,,
-bedi1235,A.1.b,fon-d,fч́ndέŋ ,fч́ndέŋ ,Digitaria exilis  Stapf [family ],BEDIK,fun,,12.75,-12.48,,,,
-biaf1240,A.2.b,-fin-,bofinhe,bofinhe,Digitaria exilis  Stapf [family ],BIAFADA,bofinhe,,11.47,-15.13,,,,
-bobo1253,A.3.a,fan,fan,fan,Digitaria exilis  Stapf [family ],BOBO,fan,,12.42,-4.48,,,,
-bull1247,B.2,pen-,peni-lε,peni-lε,Digitaria exilis  Stapf [family ],BULOM,pen,,9.00,-13.16,,,,
-bull1247,B.2,pen-,peni,peni,Digitaria exilis  Stapf [family ],BULOM,pen,,9.00,-13.16,,,,
-uppe1455,A.1.b,fon-ny,fundo,fundo,Digitaria exilis  Stapf [family ],CRIOULO,fun,,13.23,-15.33,,,,
-dagb1246,L,kabega,kabega,kabega,Digitaria exilis  Stapf [family ],DAGBANI,kabega,,9.65,-0.43,,,,
-dann1241,B.1,poh,pohin,pohin,Digitaria exilis  Stapf [family ],DAN,pon-,,7.22812,-8.24535,,,,
-bayo1255,B.3,bona,ebonay,ebonay,Digitaria exilis  Stapf [family ],DIOLA,ebon,,12.69,-16.39,,,,
-dogo1299,B.1,pon-,põ,põ,Digitaria exilis  Stapf [family ],DOGON,pon,,,,,,,
-maas1239,C,sereme,sereme,sereme,Digitaria exilis  Stapf [family ],FULA-FULFULDE (Upper,sereme,,11.13,-3.65,,,,
-pula1263,C,sereme,serene,serene,Digitaria exilis  Stapf [family ],FULA-PULAAR,sereme,,13.87,-13.45,,,,
-pula1263,A.1.a,fon-,fonio,fonio,Digitaria exilis  Stapf [family ],FULA-PULAAR,pon,,13.87,-13.45,,,,
-pula1263,A.1.a,foig,foignié,foignié,Digitaria exilis  Stapf [family ],FULA-PULAAR,pon,,13.87,-13.45,,,,
-pula1263,A.1.a,fon-ny,fσnyε,fσnyε,Digitaria exilis  Stapf [family ],FULA-PULAAR,pon,,13.87,-13.45,,,,
-pula1263,C,sereme,sereme,sereme,Digitaria exilis  Stapf [family ],FULA-PULAAR,sereme,,13.87,-13.45,,,,
-gola1255,B.1,pot-,pote,pote,Digitaria exilis  Stapf [family ],GOLA,pon-,,7.06,-10.81,,,,
-haus1257,O,atcha,atcha,atcha,Digitaria exilis  Stapf [family ],HAUSA,atcha,, ,,,,,
-haus1257,A.2.a,fin,fira,fira,Digitaria exilis  Stapf [family ],HAUSA,fir,,11.15,8.78,,,,
-nort2765,A.4.b,kpen,kpendo,kpendo,Digitaria exilis  Stapf [family ],KISSI,kpen,,8.73,-10.41,,,,
-nort2765,A.4.b,kpen,kpendõ,kpendõ,Digitaria exilis  Stapf [family ],KISSI,kpen,,8.73,-10.41,,,,
-konk1269,P,epich,epich,epich,Digitaria exilis  Stapf [family ],KONKOMBA,epich,,,,,,,
-cent2048,A.1.b,fon-d,fonde,fonde,Digitaria exilis  Stapf [family ],KONO,pon-,,,,,,,
-wame1240,,faro,ifarõbt,ifarõbt,Digitaria exilis  Stapf [family ],KONYAGI,ifarobt,,,,,,,
-kura1250,A.1.b,fon-d,fondiba,fondiba,Digitaria exilis  Stapf [family ],KORANKO,fon,,,,,,,
-krio1253,A.1.b,fon-d,funde,funde,Digitaria exilis  Stapf [family ],KRIO,fon,,,,,,,
-guer1240,B.1,poh,pohim,pohim,Digitaria exilis  Stapf [family ],KRU-GUERE,po,,,,,,,
-koro1298,A.2.b,pen,apendi,apendi,Digitaria exilis  Stapf [family ],KURUMBA,apen,,,,,,,
-guro1248,A.2.a,fin-X,fịnị,fịnị,Digitaria exilis  Stapf [family ],KWENI,fin,,,,,,,
-land1256,B.2,pen,pende,pende,Digitaria exilis  Stapf [family ],LANDOMA,pen,,,,,,,
-limb1267,A.2.b,pin,ampindi,ampindi,Digitaria exilis  Stapf [family ],LIMBA,ampin,,,,,,,
-limb1267,A.2.b,pen,mpende,mpende,Digitaria exilis  Stapf [family ],LIMBA,mpen,,,,,,,
-loko1255,B.1,pot,pote,pote,Digitaria exilis  Stapf [family ],LOKO,po,,,,,,,
-loma1259,B.1,pot,podé,podé,Digitaria exilis  Stapf [family ],LOMA,po,,,,,,,
-bamb1270,A.2.a,fon,fono,fono,Digitaria exilis  Stapf [family ],MANDING-BAMBARA,fon,,,,,,,
-bamb1270,A.1.a,fon,fani,fani,Digitaria exilis  Stapf [family ],MANDING-BAMBARA,fan,,,,,,,
-mand1436,B.3,bon-,dibong,dibong,Digitaria exilis  Stapf [family ],MANDING-MANDINKA,dibong,,,,,,,
-mand1436,A.2.a,fin-d,findo,findo,Digitaria exilis  Stapf [family ],MANDING-MANDINKA,fin-,,,,,,,
-mand1436,A.1.a,fun,funi,funi,Digitaria exilis  Stapf [family ],MANDING-MANDINKA,fun,,,,,,,
-mane1267,A.1.a,fon,foigné,foigné,Digitaria exilis  Stapf [family ],MANDING-MANINKA,fon,,,,,,,
-mane1267,A.1.a,fon,foni,foni,Digitaria exilis  Stapf [family ],MANDING-MANINKA,fon,,,,,,,
-mand1419,A.2.a,fin-d,findi,findi,Digitaria exilis  Stapf [family ],MANDYAK,fin,,,,,,,
-mand1419,,uante,uante  urote,uante  urote,Digitaria exilis  Stapf [family ],MANDYAK,,,,,,,,
-mane1267,A.1.a,fon,fono,fono,Digitaria exilis  Stapf [family ],MANINKA,fon,,,,,,,
-mane1267,,fam,fame,fame,Digitaria exilis  Stapf [family ],MANINKA,fam,,,,,,,
-mank1251,,uante,uante  udote,uante  udote,Digitaria exilis  Stapf [family ],MANKANYA,,,,,,,,
-nawd1238,A.2.c,fig,figm,figm,Digitaria exilis  Stapf [family ],NAWDM,,,,,,,,
-pape1239,,rote,rote  urrote,rote  urrote,Digitaria exilis  Stapf [family ],PEPEL,,,,,,,,
-mand1437,A.1.b,fon,fö,fö,Digitaria exilis  Stapf [family ],SAMO,,,,,,,,
-song1307,A.2.b,fin-ny,fingi,fingi,Digitaria exilis  Stapf [family ],SONGHAI,,,,,,,,
-soni1258,B.1,pwe,pwẽ,pwẽ,Digitaria exilis  Stapf [family ],SONINKE-PANA,,,,,,,,
-susu1250,A.1.b,fon-d,fonde,fonde,Digitaria exilis  Stapf [family ],SUSU,,,,,,,,
-susu1250,A.1.b,fon-d,funde,funde,Digitaria exilis  Stapf [family ],SUSU,,,,,,,,
-west2452,,chama,tschamma,tschamma,Digitaria exilis  Stapf [family ],TEM,,,,,,,,
-timn1235,A.2.b,pen,a-pende,a-pende,Digitaria exilis  Stapf [family ],TEMNE,,,,,,,,
-timn1235,,ene,ka-enε ,ka-enε ,Digitaria exilis  Stapf [family ],TEMNE,,,,,,,,
-timn1235,,pot,a-pσtc,a-pσtc,Digitaria exilis  Stapf [family ],TEMNE,,,,,,,,
-timn1235,A.2.b,pen,a-pende,a-pende,Digitaria exilis  Stapf [family ],TEMNE,,,,,,,,
-timn1235,A.2.b,pen,a-peni  ,a-peni  ,Digitaria exilis  Stapf [family ],TEMNE,,,,,,,,
-vaii1241,B.2,pen,pende,pende,Digitaria exilis  Stapf [family ],VAI,,,,,,,,
-nucl1347  ,,dekole,deköle  ndengue ,deköle  ndengue ,Digitaria exilis  Stapf [family ],WOLOF,,,,,,,,
-nucl1347  ,A.1.b,fin-d,findi,findi,Digitaria exilis  Stapf [family ],WOLOF,,,,,,,,
-yalu1240,A.1.b,fun-d,funde-na,funde-na,Digitaria exilis  Stapf [family ],YALUNKA,,,,,,,,
+﻿glott_code,style,form,t1,t2,gloss
+ampa1238,B.1,pon-,pɔ̰́ɔ̰̀,pɔ̂:ⁿ,fonio
+anyi1245,A.2.b,fon,ńfônì,ńfônì,Digitaria exilis  Stapf [family ]
+baat1238,B.1,pod,podgi,podgi,Digitaria exilis  Stapf [family ]
+bady1239,B.1,pon-,pooɲa,pooɲa,fonio.
+bala1301,A.2.b,fin,fenhe,fenhe,Digitaria exilis  Stapf [family ]
+bala1302,J,wura,wúrā,wúrā,plante sp. (fonio)
+bala1302,A.2.b,fin-d,fíndì,fíndì,fonio (en grains)
+bamb1269,A.2.b,fin-ny,fínḭ́,fínḭ́,"Digitaria exilis, fonio, éleusine"
+bang1363,K,wii,wīī-bɛ̀,wīī-bɛ̀,fonio
+bank1259,B.1,pon-,pɔ̰̌,pɔ̌ⁿ,fonio
+bass1258,A.1.a,fon-ny,fu`nya´Ñ,funyaÑ,"Digitaria exilis, fonio"
+bass1258,A.2.d,fon-ny,funyaŋ i-бanax,funyaŋ i-бanax,Digitaria exilis  Stapf [family ]
+bayo1255,B.3,bona,ebonay,ebonay,Digitaria exilis  Stapf [family ]
+bedi1235,A.1.b,fon-d,fɔ́ndɛ́ŋ,fɔ́ndɛ́ŋ,fonio
+bent1238,B.1,pon-,pɔ̌-j̃,pɔ̌yⁿ,fonio
+biaf1240,A.2.b,-fin-,bofinhe,bofinhe,Digitaria exilis  Stapf [family ]
+bobo1253,A.3.a,fan,fan,fan,Digitaria exilis  Stapf [family ]
+bomu1247,B.2,pen-,pènù,pènù / pèré,"fonio, Digitaria exilis"
+bond1248,B.1,pon-,pɔ̰̀ɔ̰́,pɔ̌:ⁿ,fonio
+bozo1252,A.1.a,fon-ny,fuo˜,fuo˜,fonio (Digitaris exilis)
+bull1247,B.2,pen-,pénɛ̀,pénɛ̀,"fonio, millet (Pennisetum leonis)"
+cent2048,A.1.b,fon-d,fonde,fonde,Digitaria exilis  Stapf [family ]
+dagb1246,L,kabega,kabega,kabega,Digitaria exilis  Stapf [family ]
+dann1241,B.1,poh,pohin,pohin,Digitaria exilis  Stapf [family ]
+dend1243,G,densinbi,deÑsib(w)øÑtÆ,deÑsib(w)øÑtÆ,fonio
+dend1243,H,hantaya,háŋtáájà,háŋtááyà,fonio
+dogo1299,B.1,pon-,põ,põ,Digitaria exilis  Stapf [family ]
+donn1239,B.1,pon-,pɔ̀ŋɔ́,pɔ̀ŋɔ́,fonio
+dyul1238,A.1.b,fon-d,fó̰dí,fó̰dí,fonio
+east2431,A.2.a,fin-ny,finji,finji,fonio (panicum longiflorum)
+east2431,E,gan-,ganchi,ganchi,fonio sauvage
+gola1255,B.1,pot-,pote,pote,Digitaria exilis  Stapf [family ]
+guer1240,B.1,poh,pohim,pohim,Digitaria exilis  Stapf [family ]
+guin1254,X,b'in,ɓíníŋ,ɓíníŋ,míniŋ fonio
+guin1254,X,min,míníŋ,míníŋ,fonio
+guro1248,A.2.a,fin-X,fịnị,fịnị,Digitaria exilis  Stapf [family ]
+guru1265,B.1,pon-,pɔ̀ŋɔ́,pɔ̀ŋɔ́,fonio
+gusi1246,A.2.b,fin-d,ɛ-fɩndɔ,ɛfɩndɔ,fonio
+gusi1246,B.3,boona,ɛ-bɔɔɲa,ɛbɔɔɲa,fonio
+hain1253,A.1.a,fon-ny,fw’~`¥,fw’~`¥,fonio
+haus1257,O,atcha,atcha,atcha,Digitaria exilis  Stapf [family ]
+haus1257,A.2.a,fin,fira,fira,Digitaria exilis  Stapf [family ]
+humb1243,E,gan-,gaÑso,gaÑso,fonio
+humb1243,C,serembe,sérémb-ò,sérémb-ò,fonio (cultivated grain)
+ibis1234,B.1,pon-,pɔ̰̀ɔ̰́,pɔ̌:ⁿ,fonio
+igoo1238,K,wubi,ā-wúbī,ā-wúbī,fonio
+jalk1242,A.2.c,fin,fīnī,fīnī,fonio (grain) / fonio (céréale)
+jams1239,B.1,pon-,pɔ̀ŋɔ́,pɔ̀ŋɔ́,fonio
+jena1242,H,hantaya,háÑtááyà ,haÑtaaya,fonio
+jena1242,B.1,puw,pùwɔ̰́,pùwɔ́ⁿ,fonio (grain)
+jola1263,B.3,boona,ɛ-bɔɔɲa,ɛbɔɔɲa,fonio
+jola1263,X,fele,e-fələb,efələb,fonio
+kaka1265,A.1.b,fon-d,fóndó,fóndó,fonio m // fonio // фо́нио
+kaou1238,A.1.c,fin,fééná̰,fééná̰,fonio
+kobi1241,A.2.b,fin-d,findo,findo,fonio
+konk1269,P,epich,epich,epich,Digitaria exilis  Stapf [family ]
+koro1298,B.2,pen-,peŋɡ-,peŋg-,"noun. grain of fonio, (pl.) fonio (Digitaria exilis); fr: graine de fonio; (pl.) fonio (Digitaria exilis); dt: Foniokorn; (Pl.) Fonio (Digitaria exilis). [Note: White fonio (Digitaria exilis) is common among the Koromba, but black fonio (Digitaria iburua) is not.]"
+koro1298,A.2.b,pen,apendi,apendi,Digitaria exilis  Stapf [family ]
+koyr1242  ,E,gan-,ganƒi / ganso,ganƒi / ganso,"Panicum Lae ; graminée de la brousse (petite) , fonio"
+krio1253,A.1.b,fon-d,funde,funde,Digitaria exilis  Stapf [family ]
+kura1250,A.1.b,fon-d,fondiba,fondiba,Digitaria exilis  Stapf [family ]
+kuwa1246,B.1,pon-,ɛ-bɔɔɲa,ɛbɔɔɲa,"petit mil, fonio [dial. : Yamáakey]"
+land1256,B.2,pen,pende,pende,Digitaria exilis  Stapf [family ]
+lele1266,A.1.b,fon-d,fóndé,fóndé,Digitaria exilis fonio m / fonio
+limb1267,A.2.b,pin,ampindi,ampindi,Digitaria exilis  Stapf [family ]
+limb1267,A.2.b,pen,mpende,mpende,Digitaria exilis  Stapf [family ]
+loko1255,B.1,pot,pote,pote,Digitaria exilis  Stapf [family ]
+loma1259,B.1,pot,podé,podé,Digitaria exilis  Stapf [family ]
+maas1239,C,serembe,seremmbe,seremmbe,fonio
+mama1271,A.2.b,fin-ny,fenɛ̰,fenɛ̰,fonio
+mand1419,J,uruet,urûët,urûët,fonio
+mand1419,A.2.a,fin-d,findi,findi,Digitaria exilis  Stapf [family ]
+mand1419,X,uante,uante  urote,uante  urote,Digitaria exilis  Stapf [family ]
+mand1436,A.2.b,fin-d,fíndì,fíndì,fonio
+mand1436,B.3,bon-,dibong,dibong,Digitaria exilis  Stapf [family ]
+mand1436,A.1.a,fun,funi,funi,Digitaria exilis  Stapf [family ]
+mand1437,A.1.b,fon,fö,fö,Digitaria exilis  Stapf [family ]
+mane1267,A.2.b,fon-d,féidêi,fidi,"fonio préparé, plat de fonio"
+mane1267,A.1.a,fon-ny,féonéin,fonin,fonio non préparé
+mane1267,A.1.a,fon,foigné,foigné,Digitaria exilis  Stapf [family ]
+mane1267,X,fam,fame,fame,Digitaria exilis  Stapf [family ]
+mank1251,X,uante,uante  udote,uante  udote,Digitaria exilis  Stapf [family ]
+maty1235,A.1.a,fon-ny,f’¥rÀ¥~ [fwÀ~¥À~],f’¥rÀ¥~ [fwÀ~¥À~],fonio
+maty1235,B.2,pin,piini,piini,fonio
+mend1266,A.1.b,fon-d,fùndé,fùndé,"hungry millet, fundi"
+mend1266,B.1,pot#fod,póté,póté,"hungry millet, fundi"
+mixi1241,A.1.b,fon-d,fóndé,fóndé,"fonio, le."
+momb1254,B.1,pon-,pɔ̰́ɔ̰̀,pɔ̂:ⁿ,fonio
+mwan1250,A.2.b,fin-d,fíɗíŋ́,fíɗíŋ́,Digitaria exilis fonio
+nalu1240,B.2,pin,pindi,pindi,fonio
+nati1243,A.1.c,fon,fóŋɡí,fóŋgí,fonio
+nati1243,A.1.c,fon,fòŋké,fòŋké,fonio
+nawd1238,A.2.c,fig,figm,figm,Digitaria exilis  Stapf [family ]
+nort2765,A.4.b,kpen,kpendo,kpendo,Digitaria exilis  Stapf [family ]
+nucl1347  ,X,dekole,deköle  ndengue ,deköle  ndengue ,Digitaria exilis  Stapf [family ]
+nucl1347  ,A.1.b,fin-d,findi,findi,Digitaria exilis  Stapf [family ]
+pape1239,X,rote,rote  urrote,rote  urrote,Digitaria exilis  Stapf [family ]
+pena1270,B.1,pon-,pɔ́ɔ́-ŋɡè,pɔ́:ŋgè,fonio
+perg1234,B.1,pon-,pɔ̰̀ɔ̰́,pɔ̌:ⁿ,fonio
+pula1262,C,sereme,seremme,seremme,Digitaria exilis (fonio)
+pula1262,A.1.a,fon-ny,foɲɲe,foɲɲe,fonio (Digitaria exilis). [[spéc.] ~ho ; [dial.] fonnyo ‘FL’ ; seremme ‘M’.]
+pula1263,C,sereme,serene,serene,Digitaria exilis  Stapf [family ]
+pula1263,A.1.a,fon-,fonio,fonio,Digitaria exilis  Stapf [family ]
+pula1263,A.1.a,foig,foignié,foignié,Digitaria exilis  Stapf [family ]
+pula1263,A.1.a,fon-ny,fσnyε,fσnyε,Digitaria exilis  Stapf [family ]
+pula1263,C,sereme,sereme,sereme,Digitaria exilis  Stapf [family ]
+sann1238,B.2,pin,pi,pi,fonio
+seek1238,A.1.c,fon,fón̏,fó (n̏),fonio
+senu1239,A.1.c,fin-X,fe,fe,fonio
+sere1260,A.1.a,fon-ny,fooɲo,fooɲo,"petite graminée qui pousse à l'état sauvage dans la boucle du Niger ; tige de 35cm maxi se terminant par 2 ou 3 épis longs et frêles couverts de petites graines grisâtre, Digitaris, exilis STAPF, millet, fonio [NB. il est cultivé, en grand, par des Manding du Mali (soudan français) qui en font quelques petits champs au Sénégal ; il en existe plusieurs variétés, les + hatives, semées au début de la saison des pluies, peuvent être récoltées 3 ou 4 mois après... ; Mand. fooño]"
+sigi1234,A.1.b,fon-d,fōōɗə̄,fōōɗə̄,acha ; hungry rice
+song1307,A.2.b,fin-ny,fingi,fingi,Digitaria exilis  Stapf [family ]
+soni1258,B.1,pwe,pwẽ,pwẽ,Digitaria exilis  Stapf [family ]
+soni1259,A.1.a,fon-ny,fuñanNo,fuñanNo,fonio
+soni1259,A.3.a,hun-,húɲáŋŋè,húɲáŋŋè,fonio
+soni1259,A.2.d,fon-ny,fuɲanɲo,fuñanño,fonio
+sout2840,A.1.c,fon,fān,fān,Fonio.
+susu1250,A.1.b,fon-d,féundéen,funden,"fonio, rougeole"
+tada1238,E,gan-,gaÑƒi,gaNSi,fonio
+tada1238,F,ifiban,iƒiiban,iSiiban,fonio
+tada1238,F,esiban,ësi(i)ban,ësi(i)ban,fonio
+timn1235,A.2.b,pen,a-pende,a-pende,Digitaria exilis  Stapf [family ]
+timn1235,X,ene,ka-enε ,ka-enε ,Digitaria exilis  Stapf [family ]
+timn1235,X,pot,a-pσtc,a-pσtc,Digitaria exilis  Stapf [family ]
+timn1235,A.2.b,pen,a-pende,a-pende,Digitaria exilis  Stapf [family ]
+togo1254,B.1,pon-,pɔ̀ŋɔ́,pɔ̀ŋɔ́,fonio
+tomm1242,B.1,pon-,pɔ̰̀ɔ̰́,pɔ̀ɔ́ⁿ,fonio
+tond1249,A.1.c,fin-NY,fíŋɡì,fíŋgì,cultivated fonio (grain)
+tuar1240  ,F,ifiban,iƒiban,iƒiban,fonio
+turk1306,A.1.c,fon-ny,fomw / fomba,fomw / fomba,fonio
+uppe1455,A.1.b,fon-ny,fundo,fundo,Digitaria exilis  Stapf [family ]
+vaii1241,B.2,pen,pende,pende,Digitaria exilis  Stapf [family ]
+wame1240,X,faro,ifarõbt,ifarõbt,Digitaria exilis  Stapf [family ]
+west2452,X,chama,tschamma,tschamma,Digitaria exilis  Stapf [family ]
+west2500,A.2.b,fin-d,fíndi,findi,fonio
+xaas1235,A.1.b,fon-d,fúndí,fúndí,fonio
+yalu1240,A.1.b,fun-d,funde-na,funde-na,Digitaria exilis  Stapf [family ]
+yorn1234,B.1,pon-,pɔ̰̀ɔ̰́,pɔ̌:ⁿ,fonio
+zarm1239,D,hargey,hárgéy,hargey,fonio (espèce de -) 
+zarm1239,E,gan-,gaÑsi,gaÑsi,fonio
+zarm1239,E,gan-,gèÑsì,geÑsi,fonio
+zarm1239,F,gen-,ɡèŋsì,gèŋsì,fonio
+zial1235,B.1,pod,pò̰dè,pò̰dè,fonio | fonio
