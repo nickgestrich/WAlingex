@@ -269,7 +269,7 @@ save_maps <- function(data_list, form_column = "form", background = "colour") {
 ```{r}
 #| label: fonio
 #| fig-cap: "fonio word forms"
- create_leaflet_map(data_list[[1]], background = "bw")
+ create_leaflet_map(data_list$iron, background = "bw")
 ```
 
 Save an html version of all objects
