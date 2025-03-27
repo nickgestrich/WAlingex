@@ -280,6 +280,77 @@ Save an html version of all objects
 # save_maps(data_list)
 ```
 
+### Add further layers to the map
+Get the archaeological data layers
+```{r}
+# Create a vector of file paths
+points <- here::here("analysis", "data", "raw_data", c("gold_points.csv", 
+                                                     "fonio_points.csv",
+                                                     "millet_points.csv",
+                                                     "salt_points.csv",
+                                                     "iron_points.csv"))
+
+# read the csv files into a list of data frames
+point_list <- purrr::map(points, readr::read_csv2)
+
+# make sf geometry
+test <- point_list[[1]] |> sf::st_as_sf(coords = c("lon","lat"))
+
+# set crs
+sf::st_crs(test) <- 4326
+```
+
+
+function to add further layers
+```{r}
+add_sf_to_leaflet_map <- function(leaflet_map, new_data_sf, label_column) {
+  
+  # Ensure the new input data is an sf object and contains the required columns
+  if (!inherits(new_data_sf, "sf")) {
+    stop("The new input data must be an sf object.")
+  }
+  if (!label_column %in% colnames(new_data_sf)) {
+    stop(paste("The column", label_column, "is not found in the new data."))
+  }
+  
+  # Define a color for the new points
+  new_point_color <- "black"  
+  
+  # Add the new sf object as a point layer to the existing leaflet map
+  leaflet_map <- leaflet_map |>
+    leaflet::addCircleMarkers(
+      data = new_data_sf,
+      lng = ~sf::st_coordinates(geometry)[, 1],
+      lat = ~sf::st_coordinates(geometry)[, 2],
+      color = new_point_color,
+      radius = 2,
+      stroke = FALSE, fillOpacity = 1,
+      label = purrr::map(
+        glue::glue("<span style='color:{new_point_color}; font-weight: normal; font-size: 10px;'>{as.character(new_data_sf[[label_column]])}</span>"),
+        htmltools::HTML
+      ),
+      labelOptions = leaflet::labelOptions(
+        noHide = TRUE,
+        direction = 'top',
+        textOnly = TRUE
+      )
+    )
+  
+  # Return the updated map object
+  return(leaflet_map)
+}
+```
+
+
+```{r}
+#run mapping function
+create_leaflet_map(data_list$gold, background = "bw") |> 
+
+#add point layer
+add_sf_to_leaflet_map(test, label_column = "site")
+```
+
+
 ## Make static maps (for printing etc)
 
 Function to make static plots
@@ -369,24 +440,26 @@ create_static_map_tmap <- function(data_sf, form_column = "form", style_column =
   num_categories <- length(unique(data_sf[[style_column]]))
   dark_palette <- scales::brewer_pal(palette = "Dark2")(num_categories)
   
-  # Get the background map using maptiles package
-  background_map <- maptiles::get_tiles(data_sf, provider = "Esri.WorldGrayCanvas", crop = TRUE)
-  
   # Increase the boundaries of the plot
   bbox <- sf::st_bbox(data_sf)
   x_range <- bbox["xmax"] - bbox["xmin"]
   y_range <- bbox["ymax"] - bbox["ymin"]
-  bbox["xmin"] <- bbox["xmin"] - 50 * x_range
-  bbox["xmax"] <- bbox["xmax"] + 50 * x_range
-  bbox["ymin"] <- bbox["ymin"] - 50 * y_range
-  bbox["ymax"] <- bbox["ymax"] + 50 * y_range
+  bbox["xmin"] <- bbox["xmin"] - 0.5 * x_range
+  bbox["xmax"] <- bbox["xmax"] + 0.5 * x_range
+  bbox["ymin"] <- bbox["ymin"] - 0.5 * y_range
+  bbox["ymax"] <- bbox["ymax"] + 0.5 * y_range
+  attr(bbox, "class") <- "bbox"
+  
+  # Get the background map using maptiles package without cropping
+  background_map <- maptiles::get_tiles(data_sf, provider = "Esri.WorldGrayCanvas", crop = FALSE)
   
   # Create the tmap object
   tmap::tmap_mode("plot")
-  map_plot <- tmap::tm_shape(background_map) +
+  map_plot <- tmap::tm_shape(background_map, bbox = bbox) +
     tmap::tm_rgb() +
     tmap::tm_shape(data_sf) +
-    tmap::tm_text(text = form_column, col = style_column, palette = dark_palette) +
+    tmap::tm_text(text = form_column, col = style_column, 
+                  col.scale = tmap::tm_scale(values = dark_palette)) +
     tmap::tm_layout(title = plot_title, legend.show = FALSE, bbox = bbox)
   
   # Return the tmap object
