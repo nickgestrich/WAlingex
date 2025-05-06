@@ -40,9 +40,9 @@ csl: "../templates/journal-of-archaeological-science.csl" # Insert path for the 
 abstract: |
   Text of abstract
 keywords: |
-  keyword 1; keyword 2; keyword 3
+  West Africa; trade; historical linguistics
 highlights: |
-  These are the highlights. 
+  Maps of loanwords to illustrate historical trade pattern in West Africa
 prefer-html: true
 ---
 
@@ -56,6 +56,7 @@ Highlights: `r rmarkdown::metadata$highlights`
 
 <!-- The actual document text starts here: -->
 
+## Retrieve and clean data
 In order to have location data, we read in the African languages, their glottoglog code, and their location from the glottolog database (@hammarstromGlottolog2024).
 
 ```{r}
@@ -271,7 +272,7 @@ save_maps <- function(data_list, form_column = "form", background = "colour") {
 ```{r}
 #| label: fonio
 #| fig-cap: "fonio word forms"
-# create_leaflet_map(data_list$iron, background = "bw")
+# create_leaflet_map(data_list$iron, background = "bw") #uncomment to run
 ```
 
 Save an html version of all objects
@@ -279,7 +280,7 @@ Save an html version of all objects
 ```{r}
 #| label: save-maps
 #| eval: false
-# save_maps(data_list)
+# save_maps(data_list)  #uncomment to run
 ```
 
 ### Add further layers to the map
@@ -346,10 +347,10 @@ add_sf_to_leaflet_map <- function(leaflet_map, new_data_sf, label_column) {
 
 ```{r}
 #run mapping function
-create_leaflet_map(data_list$gold, background = "bw") |> 
+#create_leaflet_map(data_list$gold, background = "bw") |> #uncomment to run
 
 #add point layer
-add_sf_to_leaflet_map(points_sf, label_column = "site")
+#add_sf_to_leaflet_map(points_sf, label_column = "site") #uncomment to run
 ```
 
 
