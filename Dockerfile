@@ -16,7 +16,4 @@ RUN . /etc/environment \
   && R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))" \
   && R -e "remotes::install_github(c('rstudio/renv', 'quarto-dev/quarto-r'))" \
   # install pkgs we need
-  && R -e "renv::restore()" \
-  # render the manuscript into a docx, you'll need to edit this if you've
-  # customised the location and name of your main qmd file
-  && R -e "quarto::quarto_render('/WAlingex/analysis/paper/loan word maps.qmd')"
+  && R -e "renv::restore()"

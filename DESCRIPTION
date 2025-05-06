@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R:
     person("Nikolas", "Gestrich", , "gestrich@uni-frankfurt.de", role = c("aut", "cre"))
     person("Henning", "Schreiber", , "henning.schreiber@uni-hamburg.de", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: Provides data and code to produce loan word maps for West Africa.
 License: MIT + file LICENSE
 ByteCompile: true
 Encoding: UTF-8
