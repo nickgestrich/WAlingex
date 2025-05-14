@@ -353,6 +353,443 @@ add_sf_to_leaflet_map <- function(leaflet_map, new_data_sf, label_column) {
 #add_sf_to_leaflet_map(points_sf, label_column = "site") #uncomment to run
 ```
 
+## Networks
+Next, we will create networks from this data, in order to be able to analyse and visualise connections.The dataset of languages is the nodelist, the edges are made on the basis of shared forms. First, the edge list is made. Fir this, we need more detailed classifications than for the maps above, so we need to read the data in again without simplifying the classifications.
+
+```{r prepare data for network}
+# read classified loan word data
+
+# read the csv files into a list of data frames
+net_data_list <- purrr::map(objs, readr::read_csv)
+
+# Assign names
+names(net_data_list) <- c("gold", "fonio", "millet", "salt", "iron")
+
+# Function to prepare each dataset for making it into an edge list
+prepare_data <- function(data) {
+  data |> 
+    # Step 1: Split the 'style' column into hierarchical levels
+    dplyr::mutate(
+      cl1 = stringr::str_extract(style, "^[A-Z]"),                    # First level
+      cl2 = stringr::str_extract(style, "^[A-Z]\\.\\d+"),             # Second level
+      cl3 = stringr::str_extract(style, "^[A-Z]\\.\\d+\\.\\w+")       # Third level
+    ) |> 
+    # Step 2: Replace "X" with NA in cl1, cl2, and cl3
+    dplyr::mutate(
+      cl1 = dplyr::if_else(cl1 == "X", NA_character_, cl1),
+      cl2 = dplyr::if_else(cl2 == "X", NA_character_, cl2),
+      cl3 = dplyr::if_else(cl3 == "X", NA_character_, cl3)
+    )
+}
+
+# Apply the function to each dataset in the list
+net_data_list <- lapply(net_data_list, prepare_data) 
+```
+
+```{r edge list function}
+# Function to generate edge list
+generate_edgelist <- function(data) {
+  # Step 1: Create pairwise comparisons of glott_code values
+  edgelist <- expand.grid(glott_code_1 = data$glott_code, 
+                          glott_code_2 = data$glott_code,
+                          stringsAsFactors = FALSE) |>
+    # Remove self-loops
+    dplyr::filter(glott_code_1 != glott_code_2) |>
+    # Add corresponding cl1, cl2, cl3 for both nodes
+    dplyr::left_join(data, by = c("glott_code_1" = "glott_code")) |>
+    dplyr::rename(cl1_1 = cl1, cl2_1 = cl2, cl3_1 = cl3) |>
+    dplyr::left_join(data, by = c("glott_code_2" = "glott_code")) |>
+    dplyr::rename(cl1_2 = cl1, cl2_2 = cl2, cl3_2 = cl3) |>
+    # Calculate weights based on equivalence
+    dplyr::mutate(
+      weight = dplyr::case_when(
+        cl1_1 == cl1_2 & cl2_1 == cl2_2 & cl3_1 == cl3_2 ~ 3,  # Match in cl1, cl2, and cl3
+        cl1_1 == cl1_2 & cl2_1 == cl2_2 ~ 2,                  # Match in cl1 and cl2
+        cl1_1 == cl1_2 ~ 1,                                   # Match in cl1 only
+        TRUE ~ 0                                              # No match
+      )
+    ) |>
+    # Filter out pairs with weight = 0 (no equivalence)
+    dplyr::filter(weight > 0) |>
+    dplyr::select(glott_code_1, glott_code_2, weight)
+  
+  # Step 2: Reduce the edgelist to retain only one edge per pair with the highest weight
+  reduced_edgelist <- edgelist |>
+    # Ensure undirected edges by sorting the glott_code pair
+    dplyr::mutate(
+      node_1 = pmin(glott_code_1, glott_code_2),
+      node_2 = pmax(glott_code_1, glott_code_2)
+    ) |>
+    # Group by the unique undirected pair
+    dplyr::group_by(node_1, node_2) |>
+    # Retain only the edge with the maximum weight
+    dplyr::summarise(weight = max(weight), .groups = "drop") |>
+    # Rename columns back to glott_code_1 and glott_code_2 for clarity
+    dplyr::rename(glott_code_1 = node_1, glott_code_2 = node_2)
+  
+  return(reduced_edgelist)
+}
+```
+
+```{r create edge lists}
+edgelists <- lapply(net_data_list, generate_edgelist)
+```
+
+now, we read this into tidygraph network objects. First we take the language list and convert it into a usable edge list, and then make both into a network.
+```{r}
+# Convert langloc into a tibble with latitude and longitude fields
+node_list <- langloc |>
+  dplyr::mutate(
+    latitude = sf::st_coordinates(geometry)[, 2],
+    longitude = sf::st_coordinates(geometry)[, 1]
+  ) |>
+  tibble::as_tibble() |> 
+  dplyr::select(glott_code, LanName, latitude, longitude) |> 
+
+#add some missing values
+ tibble::add_row(glott_code = "dogo1299", 
+                             LanName = "Dogon", 
+                             latitude = 14.43, 
+                             longitude = -3.49 )
+  
+
+# Create a list of tidygraph objects using the filtered node list
+graphs <- lapply(edgelists, function(edges) {
+  # Filter the node list to include only nodes present in the edge list
+  filtered_nodes <- node_list |>
+    dplyr::filter(glott_code %in% c(edges$glott_code_1, edges$glott_code_2))
+  
+  # Create the tidygraph object
+  tidygraph::tbl_graph(
+    nodes = filtered_nodes,
+    edges = edges,
+    directed = FALSE
+  )
+})
+
+```
+
+```{r graph plotting functions}
+# Function to plot a tidygraph object with geographic layout
+plot_geo_graph <- function(graph, latitude = "latitude", longitude = "longitude", weight = "weight", label = "LanName", title = "title") {
+  # Ensure that the graph has the required attributes
+  if (!latitude %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+    stop(paste("Latitude column", latitude, "not found in node attributes."))
+  }
+  if (!longitude %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+    stop(paste("Longitude column", longitude, "not found in node attributes."))
+  }
+  if (!weight %in% colnames(tidygraph::as_tibble(graph, active = "edges"))) {
+    stop(paste("Weight column", weight, "not found in edge attributes."))
+  }
+  if (!label %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+    stop(paste("Label column", label, "not found in node attributes."))
+  }
+  
+  # Plot the tidygraph object
+  ggraph::ggraph(graph, layout = "manual", x = !!rlang::sym(longitude), y = !!rlang::sym(latitude)) +
+    ggraph::geom_edge_link(
+      ggplot2::aes(width = !!rlang::sym(weight), alpha = !!rlang::sym(weight)), 
+      color = "gray"
+    ) +
+    ggraph::scale_edge_alpha_continuous(range = c(0.6, 1)) + # Map weight to opacity
+    ggraph::scale_edge_width_continuous(range = c(0.6, 1)) + # Map weight to width
+    ggraph::geom_node_point(size = 5, color = "blue") +
+    ggraph::geom_node_text(
+      ggplot2::aes(label = !!rlang::sym(label)), 
+      repel = TRUE, 
+      size = 3, 
+      color = "black"
+    ) +
+    ggplot2::labs(title = title) +
+    ggraph::theme_graph() +
+    ggplot2::theme(
+      legend.position = "none"
+    )
+}
+
+# Function to plot a tidygraph object with force-directed layout
+plot_fr_graph <- function(graph, latitude = "latitude", longitude = "longitude", weight = "weight", label = "LanName", title = "title") {
+  # Ensure that the graph has the required attributes
+  if (!weight %in% colnames(tidygraph::as_tibble(graph, active = "edges"))) {
+    stop(paste("Weight column", weight, "not found in edge attributes."))
+  }
+  if (!label %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+    stop(paste("Label column", label, "not found in node attributes."))
+  }
+  
+  # Plot the tidygraph object
+  ggraph::ggraph(graph, layout = "fr") +
+    ggraph::geom_edge_link(
+      ggplot2::aes(width = !!rlang::sym(weight), alpha = !!rlang::sym(weight)), 
+      color = "gray"
+    ) +
+    ggraph::scale_edge_alpha_continuous(range = c(0.6, 1)) + # Map weight to opacity
+    ggraph::scale_edge_width_continuous(range = c(0.6, 1)) + # Map weight to width
+    ggraph::geom_node_point(size = 5, color = "blue") +
+    ggraph::geom_node_text(
+      ggplot2::aes(label = !!rlang::sym(label)), 
+      repel = TRUE, 
+      size = 3, 
+      color = "black"
+    ) +
+    ggplot2::labs(title = title) +
+    ggraph::theme_graph() +
+    ggplot2::theme(
+      legend.position = "none"
+    )
+}
+
+# Function to plot a tidygraph object with geographic layout and louvain communities
+plot_comm_graph <- function(graph, latitude = "latitude", longitude = "longitude", weight = "weight", label = "LanName", title = "title", subtitle = NULL, community = "louvain") {
+  # Ensure that the graph has the required attributes
+  if (!latitude %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+    stop(paste("Latitude column", latitude, "not found in node attributes."))
+  }
+  if (!longitude %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+    stop(paste("Longitude column", longitude, "not found in node attributes."))
+  }
+  if (!weight %in% colnames(tidygraph::as_tibble(graph, active = "edges"))) {
+    stop(paste("Weight column", weight, "not found in edge attributes."))
+  }
+  if (!label %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+    stop(paste("Label column", label, "not found in node attributes."))
+  }
+   if (!label %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+    stop(paste("Label column", community, "not found in node attributes."))
+  }
+  
+  # Plot the tidygraph object
+  ggraph::ggraph(graph, layout = "manual", x = !!rlang::sym(longitude), y = !!rlang::sym(latitude)) +
+    ggraph::geom_edge_link(
+      ggplot2::aes(width = !!rlang::sym(weight), alpha = !!rlang::sym(weight)), 
+      color = "gray"
+    ) +
+    ggraph::scale_edge_alpha_continuous(range = c(0.6, 1)) + # Map weight to opacity
+    ggraph::scale_edge_width_continuous(range = c(0.6, 1)) + # Map weight to width
+    ggraph::geom_node_point(aes(colour = !!rlang::sym(community)),size = 5) +
+    ggraph::geom_node_text(
+      ggplot2::aes(label = !!rlang::sym(label)), 
+      repel = TRUE, 
+      size = 3, 
+      color = "black"
+    ) +
+    ggplot2::labs(title = title, subtitle = subtitle) +
+    ggraph::theme_graph() +
+    ggplot2::theme(
+      legend.position = "none"
+    )
+}
+
+```
+
+
+```{r}
+plot_geo_graph(graphs$gold, title = "gold")
+```
+
+Improve the gold graph:
+remove Wolof. It has the same form as the eastern Group, but its ouro form is probably portuguese influenced, whereas the lower Niger is not.
+Retain only stronger ties.
+
+```{r}
+library(tidygraph)
+graphs$gold |> 
+  mutate(louvain = group_louvain(weights = weight)) |> 
+  mutate(louvain = as.character(louvain)) |> 
+  activate(edges) |> 
+  filter(weight > 1) |> 
+  activate(nodes) |>
+  filter(!node_is_isolated()) |> 
+ 
+  plot_comm_graph(community = "louvain", title = "gold", subtitle = "Louvain network communities")
+
+```
+
+```{r}
+graphs$salt |> 
+  mutate(louvain = group_louvain(weights = weight)) |> 
+  mutate(louvain = as.character(louvain)) |> 
+  activate(edges) |> 
+  filter(weight > 1) |> 
+  activate(nodes) |>
+  filter(!node_is_isolated()) |> 
+ 
+  plot_comm_graph(community = "louvain", title = "salt", subtitle = "Louvain network communities")
+```
+
+
+
+Create a graph each with betweenness centrality
+```{r betweenness graphs}
+library(tidygraph)
+library(ggraph)
+library(dplyr)
+
+# Iterate over each "type" in the edge list and create a graph
+edge_list_summary |>
+  dplyr::group_split(type) |>
+  purrr::walk(\(edges_for_type) {
+    # Get the type name
+    type_name <- unique(edges_for_type$type)
+
+    # Create a filtered tidygraph object for this type
+    graph_for_type <- tidygraph::tbl_graph(
+      nodes = node_list,
+      edges = edges_for_type,
+      directed = FALSE
+    ) |>
+      tidygraph::filter(!tidygraph::node_is_isolated()) # Remove isolated nodes
+
+    # Compute betweenness centrality for node sizes
+    graph_for_type <- graph_for_type |>
+      tidygraph::mutate(betweenness = tidygraph::centrality_betweenness())
+
+    # Plot the graph
+    plot <- ggraph::ggraph(graph_for_type, layout = "manual", x = longitude, y = latitude) +
+      ggraph::geom_edge_link(aes(width = weight), edge_colour = "grey") +
+      ggraph::geom_node_point(aes(size = betweenness), colour = "blue") +
+      ggraph::geom_node_text(aes(label = LanName), repel = TRUE, size = 3) +
+      ggplot2::theme_void() +
+      ggplot2::labs(
+        title = paste("Graph for Type:", type_name),
+        size = "Betweenness",
+        width = "Edge Weight"
+      ) +
+      ggplot2::scale_size_continuous(range = c(2, 10)) +
+      ggraph::scale_edge_width_continuous(range = c(0.5, 3)) +
+      ggraph::theme_graph(base_size = 12)
+    
+    print(plot)
+  })
+```
+Create a graph each with eigenvector centrality
+```{r betweenness graphs}
+library(tidygraph)
+library(ggraph)
+library(dplyr)
+
+# Iterate over each "type" in the edge list and create a graph
+edge_list_summary |>
+  dplyr::group_split(type) |>
+  purrr::walk(\(edges_for_type) {
+    # Get the type name
+    type_name <- unique(edges_for_type$type)
+
+    # Create a filtered tidygraph object for this type
+    graph_for_type <- tidygraph::tbl_graph(
+      nodes = node_list,
+      edges = edges_for_type,
+      directed = FALSE
+    ) |>
+      tidygraph::filter(!tidygraph::node_is_isolated()) # Remove isolated nodes
+
+    # Compute betweenness centrality for node sizes
+    graph_for_type <- graph_for_type |>
+      tidygraph::mutate(eigenvector = tidygraph::centrality_eigen())
+
+    # Plot the graph
+    plot <- ggraph::ggraph(graph_for_type, layout = "manual", x = longitude, y = latitude) +
+      ggraph::geom_edge_link(aes(width = weight), edge_colour = "grey") +
+      ggraph::geom_node_point(aes(size = eigenvector), colour = "purple") +
+      ggraph::geom_node_text(aes(label = LanName), repel = TRUE, size = 3) +
+      ggplot2::theme_void() +
+      ggplot2::labs(
+        title = paste("Graph for Type:", type_name),
+        size = "Eigenvector",
+        width = "Edge Weight"
+      ) +
+      ggplot2::scale_size_continuous(range = c(2, 10)) +
+      ggraph::scale_edge_width_continuous(range = c(0.5, 3)) +
+      ggraph::theme_graph(base_size = 12)
+    
+    print(plot)
+  })
+```
+
+
+
+Save a graph for each of the trade items
+```{r}
+# Create a list of tidygraph objects, one for each "type"
+graph_list <- edge_list_summary |>
+  dplyr::group_split(type) |>
+  purrr::map(\(edges_for_type) {
+    # Get the type name
+    type_name <- unique(edges_for_type$type)
+
+    # Create a filtered tidygraph object for this type
+    graph_for_type <- tidygraph::tbl_graph(
+      nodes = node_list,
+      edges = edges_for_type,
+      directed = FALSE
+    ) |>
+      tidygraph::filter(!tidygraph::node_is_isolated()) |> # Remove isolated nodes
+      tidygraph::mutate(betweenness = tidygraph::centrality_betweenness()) # Add betweenness centrality
+
+    # Return the graph, named with the type
+    graph_for_type
+  }) |>
+  purrr::set_names(unique(edge_list_summary$type))
+
+# Save the list of graphs for further processing
+save(graph_list, file = "graph_list.RData")
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+#knock out WOlof from the gold network
+graph |> 
+  activate(edges) |> 
+  filter(type == "gold") |> 
+  activate(nodes) |> 
+  filter(LanName != "Wolof") |>
+  filter(!node_is_isolated()) |> 
+  plot_graph()
+```
+
+
+The graphs need to be sparsified now, as they are relatively useless as they are.
+```{r}
+library(backbone)
+
+disp <- disparity(graph_list$gold, alpha = 0.5)
+plot_graph(disp)
+
+```
+
+
+```{r}
+# Find glott_code values in edge lists that are not in the node_list
+find_missing_glott_codes <- function(edgelists, node_list) {
+  # Combine all unique glott_code values from the edge lists
+  all_glott_codes <- lapply(edgelists, function(edges) {
+    unique(c(edges$glott_code_1, edges$glott_code_2))
+  }) |>
+    unlist() |>  # Flatten into a single vector
+    unique()     # Remove duplicates
+  
+  # Find glott_codes not present in the node_list
+  missing_glott_codes <- setdiff(all_glott_codes, node_list$glott_code)
+  
+  return(missing_glott_codes)
+}
+
+# Apply the function
+missing_glott_codes <- find_missing_glott_codes(edgelists, node_list)
+
+# Display the missing glott_code values
+print(missing_glott_codes)
+
+
+```
+
 
 <!-- The following line inserts a page break  -->
 
