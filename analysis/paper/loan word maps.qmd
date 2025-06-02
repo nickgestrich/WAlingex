@@ -540,47 +540,13 @@ plot_fr_graph <- function(graph, latitude = "latitude", longitude = "longitude",
     )
 }
 
-# Function to plot a tidygraph object with geographic layout and louvain communities
-plot_comm_graph <- function(graph, latitude = "latitude", longitude = "longitude", weight = "weight", label = "LanName", title = "title", subtitle = NULL, community = "louvain") {
-  # Ensure that the graph has the required attributes
-  if (!latitude %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
-    stop(paste("Latitude column", latitude, "not found in node attributes."))
-  }
-  if (!longitude %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
-    stop(paste("Longitude column", longitude, "not found in node attributes."))
-  }
-  if (!weight %in% colnames(tidygraph::as_tibble(graph, active = "edges"))) {
-    stop(paste("Weight column", weight, "not found in edge attributes."))
-  }
-  if (!label %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
-    stop(paste("Label column", label, "not found in node attributes."))
-  }
-   if (!label %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
-    stop(paste("Label column", community, "not found in node attributes."))
-  }
-  
-  # Plot the tidygraph object
-  ggraph::ggraph(graph, layout = "manual", x = !!rlang::sym(longitude), y = !!rlang::sym(latitude)) +
-    ggraph::geom_edge_link(
-      ggplot2::aes(width = !!rlang::sym(weight), alpha = !!rlang::sym(weight)), 
-      color = "gray"
-    ) +
-    ggraph::scale_edge_alpha_continuous(range = c(0.6, 1)) + # Map weight to opacity
-    ggraph::scale_edge_width_continuous(range = c(0.6, 1)) + # Map weight to width
-    ggraph::geom_node_point(aes(colour = !!rlang::sym(community)),size = 5) +
-    ggraph::geom_node_text(
-      ggplot2::aes(label = !!rlang::sym(label)), 
-      repel = TRUE, 
-      size = 3, 
-      color = "black"
-    ) +
-    ggplot2::labs(title = title, subtitle = subtitle) +
-    ggraph::theme_graph() +
-    ggplot2::theme(
-      legend.position = "none"
-    )
-}
 
+```
+
+### gold
+
+```{r}
+library(tidygraph) # read in tidygraph library for less typing during exploration
 ```
 
 
@@ -592,204 +558,321 @@ Improve the gold graph:
 remove Wolof. It has the same form as the eastern Group, but its ouro form is probably portuguese influenced, whereas the lower Niger is not.
 Retain only stronger ties.
 
-```{r}
-library(tidygraph)
-graphs$gold |> 
-  mutate(louvain = group_louvain(weights = weight)) |> 
-  mutate(louvain = as.character(louvain)) |> 
-  activate(edges) |> 
-  filter(weight > 1) |> 
-  activate(nodes) |>
-  filter(!node_is_isolated()) |> 
- 
-  plot_comm_graph(community = "louvain", title = "gold", subtitle = "Louvain network communities")
-
-```
-
-```{r}
-graphs$salt |> 
-  mutate(louvain = group_louvain(weights = weight)) |> 
-  mutate(louvain = as.character(louvain)) |> 
-  activate(edges) |> 
-  filter(weight > 1) |> 
-  activate(nodes) |>
-  filter(!node_is_isolated()) |> 
- 
-  plot_comm_graph(community = "louvain", title = "salt", subtitle = "Louvain network communities")
-```
-
-
-
-Create a graph each with betweenness centrality
-```{r betweenness graphs}
-library(tidygraph)
-library(ggraph)
-library(dplyr)
-
-# Iterate over each "type" in the edge list and create a graph
-edge_list_summary |>
-  dplyr::group_split(type) |>
-  purrr::walk(\(edges_for_type) {
-    # Get the type name
-    type_name <- unique(edges_for_type$type)
-
-    # Create a filtered tidygraph object for this type
-    graph_for_type <- tidygraph::tbl_graph(
-      nodes = node_list,
-      edges = edges_for_type,
-      directed = FALSE
-    ) |>
-      tidygraph::filter(!tidygraph::node_is_isolated()) # Remove isolated nodes
-
-    # Compute betweenness centrality for node sizes
-    graph_for_type <- graph_for_type |>
-      tidygraph::mutate(betweenness = tidygraph::centrality_betweenness())
-
-    # Plot the graph
-    plot <- ggraph::ggraph(graph_for_type, layout = "manual", x = longitude, y = latitude) +
-      ggraph::geom_edge_link(aes(width = weight), edge_colour = "grey") +
-      ggraph::geom_node_point(aes(size = betweenness), colour = "blue") +
-      ggraph::geom_node_text(aes(label = LanName), repel = TRUE, size = 3) +
-      ggplot2::theme_void() +
-      ggplot2::labs(
-        title = paste("Graph for Type:", type_name),
-        size = "Betweenness",
-        width = "Edge Weight"
-      ) +
-      ggplot2::scale_size_continuous(range = c(2, 10)) +
-      ggraph::scale_edge_width_continuous(range = c(0.5, 3)) +
-      ggraph::theme_graph(base_size = 12)
-    
-    print(plot)
-  })
-```
-Create a graph each with eigenvector centrality
-```{r betweenness graphs}
-library(tidygraph)
-library(ggraph)
-library(dplyr)
-
-# Iterate over each "type" in the edge list and create a graph
-edge_list_summary |>
-  dplyr::group_split(type) |>
-  purrr::walk(\(edges_for_type) {
-    # Get the type name
-    type_name <- unique(edges_for_type$type)
-
-    # Create a filtered tidygraph object for this type
-    graph_for_type <- tidygraph::tbl_graph(
-      nodes = node_list,
-      edges = edges_for_type,
-      directed = FALSE
-    ) |>
-      tidygraph::filter(!tidygraph::node_is_isolated()) # Remove isolated nodes
-
-    # Compute betweenness centrality for node sizes
-    graph_for_type <- graph_for_type |>
-      tidygraph::mutate(eigenvector = tidygraph::centrality_eigen())
-
-    # Plot the graph
-    plot <- ggraph::ggraph(graph_for_type, layout = "manual", x = longitude, y = latitude) +
-      ggraph::geom_edge_link(aes(width = weight), edge_colour = "grey") +
-      ggraph::geom_node_point(aes(size = eigenvector), colour = "purple") +
-      ggraph::geom_node_text(aes(label = LanName), repel = TRUE, size = 3) +
-      ggplot2::theme_void() +
-      ggplot2::labs(
-        title = paste("Graph for Type:", type_name),
-        size = "Eigenvector",
-        width = "Edge Weight"
-      ) +
-      ggplot2::scale_size_continuous(range = c(2, 10)) +
-      ggraph::scale_edge_width_continuous(range = c(0.5, 3)) +
-      ggraph::theme_graph(base_size = 12)
-    
-    print(plot)
-  })
-```
-
-
-
-Save a graph for each of the trade items
-```{r}
-# Create a list of tidygraph objects, one for each "type"
-graph_list <- edge_list_summary |>
-  dplyr::group_split(type) |>
-  purrr::map(\(edges_for_type) {
-    # Get the type name
-    type_name <- unique(edges_for_type$type)
-
-    # Create a filtered tidygraph object for this type
-    graph_for_type <- tidygraph::tbl_graph(
-      nodes = node_list,
-      edges = edges_for_type,
-      directed = FALSE
-    ) |>
-      tidygraph::filter(!tidygraph::node_is_isolated()) |> # Remove isolated nodes
-      tidygraph::mutate(betweenness = tidygraph::centrality_betweenness()) # Add betweenness centrality
-
-    # Return the graph, named with the type
-    graph_for_type
-  }) |>
-  purrr::set_names(unique(edge_list_summary$type))
-
-# Save the list of graphs for further processing
-save(graph_list, file = "graph_list.RData")
-
-```
-
-
-```{r}
-
-```
-
-
-```{r}
-#knock out WOlof from the gold network
-graph |> 
-  activate(edges) |> 
-  filter(type == "gold") |> 
-  activate(nodes) |> 
-  filter(LanName != "Wolof") |>
-  filter(!node_is_isolated()) |> 
-  plot_graph()
-```
-
-
-The graphs need to be sparsified now, as they are relatively useless as they are.
-```{r}
-library(backbone)
-
-disp <- disparity(graph_list$gold, alpha = 0.5)
-plot_graph(disp)
-
-```
-
-
-```{r}
-# Find glott_code values in edge lists that are not in the node_list
-find_missing_glott_codes <- function(edgelists, node_list) {
-  # Combine all unique glott_code values from the edge lists
-  all_glott_codes <- lapply(edgelists, function(edges) {
-    unique(c(edges$glott_code_1, edges$glott_code_2))
-  }) |>
-    unlist() |>  # Flatten into a single vector
-    unique()     # Remove duplicates
+```{r louvain community plot function}
+plot_louvain_graph <- function(item) {
+  graph <- graphs[[item]] |>
+    tidygraph::mutate(louvain = tidygraph::group_louvain(weights = weight)) |>
+    tidygraph::mutate(louvain = as.character(louvain)) |>
+    tidygraph::activate("edges") |>
+    tidygraph::filter(weight > 1) |>
+    tidygraph::activate("nodes") |>
+    tidygraph::filter(!tidygraph::node_is_isolated())
   
-  # Find glott_codes not present in the node_list
-  missing_glott_codes <- setdiff(all_glott_codes, node_list$glott_code)
+      # Function to plot a tidygraph object with geographic layout and louvain communities
+    plot_comm_graph <- function(graph, latitude = "latitude", longitude = "longitude", weight = "weight",     label = "LanName", title = "title", subtitle = NULL, community = "louvain") {
+      # Ensure that the graph has the required attributes
+      if (!latitude %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+        stop(paste("Latitude column", latitude, "not found in node attributes."))
+      }
+      if (!longitude %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+        stop(paste("Longitude column", longitude, "not found in node attributes."))
+      }
+      if (!weight %in% colnames(tidygraph::as_tibble(graph, active = "edges"))) {
+        stop(paste("Weight column", weight, "not found in edge attributes."))
+      }
+      if (!label %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+        stop(paste("Label column", label, "not found in node attributes."))
+      }
+       if (!label %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+        stop(paste("Label column", community, "not found in node attributes."))
+      }
+      
+      # Plot the tidygraph object
+      ggraph::ggraph(graph, layout = "manual", x = !!rlang::sym(longitude), y = !!rlang::sym(latitude)) +
+        ggraph::geom_edge_link(
+          ggplot2::aes(width = !!rlang::sym(weight), alpha = !!rlang::sym(weight)), 
+          color = "gray"
+        ) +
+        ggraph::scale_edge_alpha_continuous(range = c(0.6, 1)) + # Map weight to opacity
+        ggraph::scale_edge_width_continuous(range = c(0.6, 1)) + # Map weight to width
+        ggraph::geom_node_point(ggplot2::aes(colour = !!rlang::sym(community)),size = 5) +
+        ggraph::geom_node_text(
+          ggplot2::aes(label = !!rlang::sym(label)), 
+          repel = TRUE, 
+          size = 3, 
+          color = "black"
+        ) +
+        ggplot2::labs(title = title, subtitle = subtitle) +
+        ggraph::theme_graph() +
+        ggplot2::theme(
+          legend.position = "none"
+        )
+    }
   
-  return(missing_glott_codes)
+  plot_comm_graph(
+    graph,
+    community = "louvain",
+    title = item,
+    subtitle = "Louvain network communities"
+  )
 }
+```
 
-# Apply the function
-missing_glott_codes <- find_missing_glott_codes(edgelists, node_list)
+```{r}
+items <- names(net_data_list)
 
-# Display the missing glott_code values
-print(missing_glott_codes)
+lapply(items, plot_louvain_graph)
+```
 
+Can we sparsify using random walks or similar traversing techniques? Trade networks in economics.
+
+### Fonio
+```{r }
+plot_fr_graph(graphs$fonio, title = "fonio")
+```
+
+This graph is somewhat perplexing. What does the connection between Bangime (wīī-bɛ̀) and Igo (ā-wúbī,volta-Congo langue in southern Togo) mean? This is a question that needs further answering. 
+For now, we can remove this pair, and concentrate on the rest.
+
+```{r}
+graphs$fonio |> 
+  activate(nodes) |> 
+  filter(!LanName %in% c("Bangime", "Igo")) |> 
+  plot_fr_graph(title = "fonio")
+```
+
+We can now see that there are outliers at either end. One is composed of a large number of Songhai variants, including Eastern Songhai Koyraboro, Humburi, and Zarma, Northern Songhai Tadaksahak, and the pastoralist languages Tuareg and Maasina Fulfulde. It is very curious that Zarma and Dendi, which are part of the same subdivision of Eastern Songhai, fall on opposite ends of this graph. We will remove both ends now to better see the centre, which appears to have three groups. 
+
+```{r}
+graphs$fonio |> 
+  activate(nodes) |> 
+  filter(!LanName %in% c("Bangime", 
+                         "Igo",
+                         "Tuareg",
+                         "Zarma",
+                         "Tadaksahak",
+                         "Koyraboro Senni Songhai",
+                         "Humburi Senni Songhay",
+                         "Maasina Fulfulde",
+                         "Dendi (Benin)")) |> 
+  plot_fr_graph(title = "fonio")
+```
+
+The resulting two groups, with a group of connecting languages between, are a geographic mess. Often, language groups fall on either end. This makes me think that more detailed analysis is necessary here. Are we picking up generics and specifics and lumping them together? There is a lot more work necessary on the vocabulary in order to make this happen. The problem is that this is not such a well-defined item as, for instance, gold is.
+
+### Millet
+
+```{r}
+plot_fr_graph(graphs$millet, title = "millet")
+```
+
+Despite the fact that we did not note millet as a trade item, this is a super interesting graph. Let's begin with the outliers: Wan (SE Mandé, CdI) has an unconnected form (fen), and Dagaari Dioula
+
+```{r}
+graphs$millet |> 
+  activate(nodes) |> 
+  filter(!LanName %in% c("Mwan", "Toura (Côte d'Ivoire)", "Baoulé", "Alladian", "Dagaari Dioula", "Wan")) |> 
+  plot_fr_graph(title = "millet")
+```
+
+
+## Finding trade routes in the networks
+
+### Create a cost variable
+This combines weight and geographic distance.
+```{r}
+graph <- graphs$gold
+
+library(geosphere)
+
+# Extract coordinates
+coords <- as.data.frame(tidygraph::as_tibble(graph, active = "nodes"))
+
+# Compute geographic distance for each edge
+edge_info <- tidygraph::as_tibble(graph, active = "edges") |>
+  dplyr::mutate(
+    lat_from = coords$latitude[from],
+    lon_from = coords$longitude[from],
+    lat_to = coords$latitude[to],
+    lon_to = coords$longitude[to],
+    geo_dist = geosphere::distHaversine(cbind(lon_from, lat_from), cbind(lon_to, lat_to)),
+    cost = geo_dist / weight
+  )
+
+# Add back to graph
+graph <- tidygraph::activate(graph, "edges") |>
+  dplyr::mutate(
+    geo_dist = edge_info$geo_dist,
+    cost = edge_info$cost
+  )
+```
+
+### Via edge betweenness
+Goal: Find edges that are most frequently used in shortest paths — "key trade routes"
+```{r}
+graph <- graph |> 
+  tidygraph::activate(edges) |> 
+  tidygraph::mutate(inv_cost = ifelse(cost == 0, Inf, 1 / cost)) |> # cost variable needs to be inverted
+  tidygraph::mutate(edge_betweenness = centrality_edge_betweenness(weights = inv_cost))
+
+# Activate edges
+edge_data <- tidygraph::activate(graph, "edges") |> 
+  tidygraph::as_tibble()
+
+# Summary statistics
+summary(edge_data$edge_betweenness)
+
+# Histogram
+hist(edge_data$edge_betweenness, 
+     breaks = 30, 
+     main = "Distribution of Edge Betweenness", 
+     xlab = "Edge Betweenness", 
+     col = "steelblue", 
+     border = "white")
 
 ```
 
+```{r}
+plot_edgecost_graph <- function(input_graph, cost, cutoff, item) {
+  graph <- input_graph |>
+    tidygraph::activate("nodes") |> 
+    tidygraph::mutate(louvain = tidygraph::group_louvain(weights = weight)) |>
+    tidygraph::mutate(louvain = as.character(louvain)) |>
+    tidygraph::activate("edges") |> 
+    tidygraph::filter(edge_betweenness>cutoff) |> 
+    tidygraph::activate("nodes") |> 
+    tidygraph::filter(!tidygraph::node_is_isolated())
+  
+      # Function to plot a tidygraph object with geographic layout and louvain communities
+    plot_comm_graph <- function(graph, latitude = "latitude", longitude = "longitude", weight = "weight",     label = "LanName", title = "title", subtitle = NULL, community = "louvain") {
+      # Ensure that the graph has the required attributes
+      if (!latitude %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+        stop(paste("Latitude column", latitude, "not found in node attributes."))
+      }
+      if (!longitude %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+        stop(paste("Longitude column", longitude, "not found in node attributes."))
+      }
+      if (!weight %in% colnames(tidygraph::as_tibble(graph, active = "edges"))) {
+        stop(paste("Weight column", weight, "not found in edge attributes."))
+      }
+      if (!label %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+        stop(paste("Label column", label, "not found in node attributes."))
+      }
+       if (!label %in% colnames(tidygraph::as_tibble(graph, active = "nodes"))) {
+        stop(paste("Label column", community, "not found in node attributes."))
+      }
+      
+      # Plot the tidygraph object
+      ggraph::ggraph(graph, layout = "manual", x = !!rlang::sym(longitude), y = !!rlang::sym(latitude)) +
+        ggraph::geom_edge_link(
+          ggplot2::aes(width = !!rlang::sym(cost), alpha = !!rlang::sym(cost)), 
+          color = "gray"
+        ) +
+        ggraph::scale_edge_alpha_continuous(range = c(0.6, 1)) + # Map weight to opacity
+        ggraph::scale_edge_width_continuous(range = c(0.6, 1)) + # Map weight to width
+        ggraph::geom_node_point(ggplot2::aes(colour = !!rlang::sym(community)),size = 5) +
+        ggraph::geom_node_text(
+          ggplot2::aes(label = !!rlang::sym(label)), 
+          repel = TRUE, 
+          size = 3, 
+          color = "black"
+        ) +
+        ggplot2::labs(title = title, subtitle = subtitle) +
+        ggraph::theme_graph() +
+        ggplot2::theme(
+          legend.position = "none"
+        )
+    }
+  
+  plot_comm_graph(
+    graph,
+    community = "louvain",
+    title = item,
+    subtitle = "Louvain network communities"
+  )
+}
+```
+
+```{r}
+
+
+graph |> 
+  activate(nodes) |> 
+  filter(!LanName %in% c("Wolof", "Sereer", "Mandjak")) |> 
+plot_edgecost_graph("inv_cost", 20, "gold")
+```
+
+You're dealing with a weighted, undirected trade network where edge weights likely reflect trade volume or strength of connection, and node coordinates give geographic context. To find the most important routes, you can approach this problem from multiple complementary angles, depending on your goal.
+
+Here are several analytical strategies, ranging from classical network analysis to spatially informed metrics:
+🧭 1. Weighted Shortest Paths (Trade Efficiency)
+
+    Goal: Find the most efficient trade routes considering both weight (stronger trade) and distance (shorter path).
+
+    Method:
+
+        Create a cost function that combines weight and geographic distance. For example:
+
+        edge_cost = distance / weight
+
+        Then use igraph::shortest_paths() or tidygraph::distances() to find paths that minimize this cost.
+
+    Geographic distance can be calculated using the Haversine formula or geosphere::distHaversine().
+
+📌 2. Edge Betweenness Centrality
+
+    Goal: Find edges that are most frequently used in shortest paths — "key trade routes".
+
+    Method:
+
+    tidygraph::activate(edges) %>%
+      tidygraph::mutate(edge_betweenness = centrality_edge_betweenness(weights = cost))
+
+    You’ll need a cost column (e.g., inverse of weight or distance/weight) as edge weights for the centrality calculation.
+
+📈 3. Flow-Based Importance (Max Flow / Min Cut)
+
+    Goal: Assess trade capacity or bottlenecks.
+
+    Method:
+
+        Use igraph::max_flow() between key trade hubs (e.g., high-degree or central nodes).
+
+        This identifies routes with the greatest potential trade capacity.
+
+📊 4. Geographically Constrained MST (Minimum Spanning Tree)
+
+    Goal: Extract a simplified network showing the most critical, efficient paths covering the entire network.
+
+    Method:
+
+        Compute edge distances and weight them with inverse trade strength.
+
+        Use igraph::mst() on the resulting cost-weighted graph.
+
+    This highlights low-cost, high-value trade connections.
+
+🌐 5. Community Bridge Edges
+
+    Goal: Find routes that link otherwise separated regions.
+
+    Method:
+
+        Run community detection (e.g., Louvain).
+
+        Identify edges connecting nodes of different communities.
+
+        These are often interregional trade routes.
+
+🛰️ 6. Geographic Visualization & Filtering
+
+    Goal: Visually identify trade corridors.
+
+    Method:
+
+        Overlay your graph on a map using ggraph + ggplot2 with geographic coordinates.
+
+        Highlight high-weight, long-distance edges or edges with high betweenness.
 
 <!-- The following line inserts a page break  -->
 
