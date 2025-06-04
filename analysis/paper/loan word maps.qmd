@@ -57,6 +57,7 @@ Highlights: `r rmarkdown::metadata$highlights`
 <!-- The actual document text starts here: -->
 
 ## Retrieve and clean data
+
 In order to have location data, we read in the African languages, their glottoglog code, and their location from the glottolog database (@hammarstromGlottolog2024).
 
 ```{r}
@@ -284,7 +285,9 @@ Save an html version of all objects
 ```
 
 ### Add further layers to the map
+
 Get the archaeological data layers
+
 ```{r}
 # Create a vector of file paths
 points <- here::here("analysis", "data", "raw_data", c("gold_points.csv", 
@@ -303,8 +306,8 @@ points_sf <- point_list[[1]] |> sf::st_as_sf(coords = c("lon","lat"))
 sf::st_crs(points_sf) <- 4326
 ```
 
-
 function to add further layers
+
 ```{r}
 add_sf_to_leaflet_map <- function(leaflet_map, new_data_sf, label_column) {
   
@@ -344,7 +347,6 @@ add_sf_to_leaflet_map <- function(leaflet_map, new_data_sf, label_column) {
 }
 ```
 
-
 ```{r}
 #run mapping function
 #create_leaflet_map(data_list$gold, background = "bw") |> #uncomment to run
@@ -353,7 +355,99 @@ add_sf_to_leaflet_map <- function(leaflet_map, new_data_sf, label_column) {
 #add_sf_to_leaflet_map(points_sf, label_column = "site") #uncomment to run
 ```
 
+## Make static maps
+
+```{r}
+library(rnaturalearth)
+
+# Load coastline and river data
+coastline <- ne_coastline(scale = "medium", returnclass = "sf")
+rivers <- ne_download(scale = "medium", type = "rivers_lake_centerlines", category = "physical", returnclass = "sf")
+```
+
+```{r}
+plot_language_map <- function(data, coastline, rivers, bbox_padding = 0.1) {
+  # Ensure consistent CRS across all inputs
+  common_crs <- sf::st_crs(coastline)  # Use the CRS of the coastline as reference
+  data <- sf::st_transform(data, crs = common_crs)
+  rivers <- sf::st_transform(rivers, crs = common_crs)
+
+  # Compute the bounding box of the data points
+  bbox <- sf::st_bbox(data)
+  # Extract numeric values for xmin, xmax, ymin, ymax to ensure clean handling
+  bbox_xmin <- as.numeric(bbox["xmin"])
+  bbox_xmax <- as.numeric(bbox["xmax"])
+  bbox_ymin <- as.numeric(bbox["ymin"])
+  bbox_ymax <- as.numeric(bbox["ymax"])
+
+  # Compute expanded bounding box
+  expanded_bbox <- sf::st_bbox(
+    c(
+      xmin = bbox_xmin - bbox_padding * (bbox_xmax - bbox_xmin),
+      xmax = bbox_xmax + bbox_padding * (bbox_xmax - bbox_xmin),
+      ymin = bbox_ymin - bbox_padding * (bbox_ymax - bbox_ymin),
+      ymax = bbox_ymax + bbox_padding * (bbox_ymax - bbox_ymin)
+    ),
+    crs = sf::st_crs(data)  # Use CRS from input data
+  )
+  # Convert bbox to polygon as sf object
+  expanded_bbox_sf <- sf::st_as_sfc(expanded_bbox)
+
+  # Crop coastline and rivers to match the bounding box
+  coastline_cropped <- sf::st_intersection(coastline, expanded_bbox_sf)
+  rivers_cropped <- sf::st_intersection(rivers, expanded_bbox_sf)
+
+  # Extract coordinates and drop geometry
+  data <- data |>
+    dplyr::mutate(
+      lon = sf::st_coordinates(geometry)[, 1],
+      lat = sf::st_coordinates(geometry)[, 2]
+    ) |>
+    sf::st_drop_geometry()
+
+  # Count occurrences of each category and order
+  category_order <- data |>
+    dplyr::count(style, name = "freq") |>
+    dplyr::arrange(dplyr::desc(freq)) |>
+    dplyr::mutate(color = dplyr::case_when(
+      dplyr::row_number() <= 12 ~ rcartocolor::carto_pal(n = 12, name = "Bold")[dplyr::row_number()], 
+      TRUE ~ "#3b3b3b"
+    ))
+
+  # Merge color mapping back to the data
+  data <- dplyr::left_join(data, category_order, by = "style")
+
+  # Plot the map
+  ggplot2::ggplot() +
+    ggplot2::geom_sf(data = coastline_cropped, color = "black", linewidth = 0.5) +  # Cropped coastline
+    ggplot2::geom_sf(data = rivers_cropped, color = "gray", linewidth = 0.3) +      # Cropped rivers
+    ggplot2::geom_text(
+      data = data,
+      ggplot2::aes(x = lon, y = lat, label = form, color = style),
+      position = ggplot2::position_jitter(width = 1.5, height = 1.5), 
+      size = 3
+    ) +  # Labels with jitter
+    ggplot2::scale_color_manual(values = setNames(category_order$color, category_order$style)) +  # Custom palette with dark gray fallback
+    ggplot2::coord_sf(
+      xlim = c(expanded_bbox["xmin"], expanded_bbox["xmax"]),
+      ylim = c(expanded_bbox["ymin"], expanded_bbox["ymax"]),
+      expand = FALSE
+    ) +  # Map extent controlled by `expanded_bbox`
+    ggplot2::theme_void() +
+    ggplot2::theme(legend.position = "none")
+}
+```
+
+```{r}
+plots <- purrr::map(data_list, ~plot_language_map(.x, coastline, rivers, bbox_padding = 0.15))
+```
+
+```{r}
+plot_language_map(data_list$gold, coastline, rivers, bbox_padding = 0.05)
+```
+
 ## Networks
+
 Next, we will create networks from this data, in order to be able to analyse and visualise connections.The dataset of languages is the nodelist, the edges are made on the basis of shared forms. First, the edge list is made. Fir this, we need more detailed classifications than for the maps above, so we need to read the data in again without simplifying the classifications.
 
 ```{r prepare data for network}
@@ -436,6 +530,7 @@ edgelists <- lapply(net_data_list, generate_edgelist)
 ```
 
 now, we read this into tidygraph network objects. First we take the language list and convert it into a usable edge list, and then make both into a network.
+
 ```{r}
 # Convert langloc into a tibble with latitude and longitude fields
 node_list <- langloc |>
@@ -549,14 +644,11 @@ plot_fr_graph <- function(graph, latitude = "latitude", longitude = "longitude",
 library(tidygraph) # read in tidygraph library for less typing during exploration
 ```
 
-
 ```{r}
 plot_geo_graph(graphs$gold, title = "gold")
 ```
 
-Improve the gold graph:
-remove Wolof. It has the same form as the eastern Group, but its ouro form is probably portuguese influenced, whereas the lower Niger is not.
-Retain only stronger ties.
+Improve the gold graph: remove Wolof. It has the same form as the eastern Group, but its ouro form is probably portuguese influenced, whereas the lower Niger is not. Retain only stronger ties.
 
 ```{r louvain community plot function}
 plot_louvain_graph <- function(item) {
@@ -627,12 +719,12 @@ lapply(items, plot_louvain_graph)
 Can we sparsify using random walks or similar traversing techniques? Trade networks in economics.
 
 ### Fonio
+
 ```{r }
 plot_fr_graph(graphs$fonio, title = "fonio")
 ```
 
-This graph is somewhat perplexing. What does the connection between Bangime (wīī-bɛ̀) and Igo (ā-wúbī,volta-Congo langue in southern Togo) mean? This is a question that needs further answering. 
-For now, we can remove this pair, and concentrate on the rest.
+This graph is somewhat perplexing. What does the connection between Bangime (wīī-bɛ̀) and Igo (ā-wúbī,volta-Congo langue in southern Togo) mean? This is a question that needs further answering. For now, we can remove this pair, and concentrate on the rest.
 
 ```{r}
 graphs$fonio |> 
@@ -641,7 +733,7 @@ graphs$fonio |>
   plot_fr_graph(title = "fonio")
 ```
 
-We can now see that there are outliers at either end. One is composed of a large number of Songhai variants, including Eastern Songhai Koyraboro, Humburi, and Zarma, Northern Songhai Tadaksahak, and the pastoralist languages Tuareg and Maasina Fulfulde. It is very curious that Zarma and Dendi, which are part of the same subdivision of Eastern Songhai, fall on opposite ends of this graph. We will remove both ends now to better see the centre, which appears to have three groups. 
+We can now see that there are outliers at either end. One is composed of a large number of Songhai variants, including Eastern Songhai Koyraboro, Humburi, and Zarma, Northern Songhai Tadaksahak, and the pastoralist languages Tuareg and Maasina Fulfulde. It is very curious that Zarma and Dendi, which are part of the same subdivision of Eastern Songhai, fall on opposite ends of this graph. We will remove both ends now to better see the centre, which appears to have three groups.
 
 ```{r}
 graphs$fonio |> 
@@ -675,11 +767,12 @@ graphs$millet |>
   plot_fr_graph(title = "millet")
 ```
 
-
 ## Finding trade routes in the networks
 
 ### Create a cost variable
+
 This combines weight and geographic distance.
+
 ```{r}
 graph <- graphs$gold
 
@@ -708,7 +801,9 @@ graph <- tidygraph::activate(graph, "edges") |>
 ```
 
 ### Via edge betweenness
-Goal: Find edges that are most frequently used in shortest paths — "key trade routes"
+
+Goal: Find edges that are most frequently used in shortest paths --- "key trade routes"
+
 ```{r}
 graph <- graph |> 
   tidygraph::activate(edges) |> 
@@ -804,75 +899,86 @@ plot_edgecost_graph("inv_cost", 20, "gold")
 
 You're dealing with a weighted, undirected trade network where edge weights likely reflect trade volume or strength of connection, and node coordinates give geographic context. To find the most important routes, you can approach this problem from multiple complementary angles, depending on your goal.
 
-Here are several analytical strategies, ranging from classical network analysis to spatially informed metrics:
-🧭 1. Weighted Shortest Paths (Trade Efficiency)
+Here are several analytical strategies, ranging from classical network analysis to spatially informed metrics: 🧭 1. Weighted Shortest Paths (Trade Efficiency)
 
-    Goal: Find the most efficient trade routes considering both weight (stronger trade) and distance (shorter path).
+```         
+Goal: Find the most efficient trade routes considering both weight (stronger trade) and distance (shorter path).
 
-    Method:
+Method:
 
-        Create a cost function that combines weight and geographic distance. For example:
+    Create a cost function that combines weight and geographic distance. For example:
 
-        edge_cost = distance / weight
+    edge_cost = distance / weight
 
-        Then use igraph::shortest_paths() or tidygraph::distances() to find paths that minimize this cost.
+    Then use igraph::shortest_paths() or tidygraph::distances() to find paths that minimize this cost.
 
-    Geographic distance can be calculated using the Haversine formula or geosphere::distHaversine().
+Geographic distance can be calculated using the Haversine formula or geosphere::distHaversine().
+```
 
 📌 2. Edge Betweenness Centrality
 
-    Goal: Find edges that are most frequently used in shortest paths — "key trade routes".
+```         
+Goal: Find edges that are most frequently used in shortest paths — "key trade routes".
 
-    Method:
+Method:
 
-    tidygraph::activate(edges) %>%
-      tidygraph::mutate(edge_betweenness = centrality_edge_betweenness(weights = cost))
+tidygraph::activate(edges) %>%
+  tidygraph::mutate(edge_betweenness = centrality_edge_betweenness(weights = cost))
 
-    You’ll need a cost column (e.g., inverse of weight or distance/weight) as edge weights for the centrality calculation.
+You’ll need a cost column (e.g., inverse of weight or distance/weight) as edge weights for the centrality calculation.
+```
 
 📈 3. Flow-Based Importance (Max Flow / Min Cut)
 
-    Goal: Assess trade capacity or bottlenecks.
+```         
+Goal: Assess trade capacity or bottlenecks.
 
-    Method:
+Method:
 
-        Use igraph::max_flow() between key trade hubs (e.g., high-degree or central nodes).
+    Use igraph::max_flow() between key trade hubs (e.g., high-degree or central nodes).
 
-        This identifies routes with the greatest potential trade capacity.
+    This identifies routes with the greatest potential trade capacity.
+```
 
 📊 4. Geographically Constrained MST (Minimum Spanning Tree)
 
-    Goal: Extract a simplified network showing the most critical, efficient paths covering the entire network.
+```         
+Goal: Extract a simplified network showing the most critical, efficient paths covering the entire network.
 
-    Method:
+Method:
 
-        Compute edge distances and weight them with inverse trade strength.
+    Compute edge distances and weight them with inverse trade strength.
 
-        Use igraph::mst() on the resulting cost-weighted graph.
+    Use igraph::mst() on the resulting cost-weighted graph.
 
-    This highlights low-cost, high-value trade connections.
+This highlights low-cost, high-value trade connections.
+```
 
 🌐 5. Community Bridge Edges
 
-    Goal: Find routes that link otherwise separated regions.
+```         
+Goal: Find routes that link otherwise separated regions.
 
-    Method:
+Method:
 
-        Run community detection (e.g., Louvain).
+    Run community detection (e.g., Louvain).
 
-        Identify edges connecting nodes of different communities.
+    Identify edges connecting nodes of different communities.
 
-        These are often interregional trade routes.
+    These are often interregional trade routes.
+```
 
 🛰️ 6. Geographic Visualization & Filtering
 
-    Goal: Visually identify trade corridors.
+```         
+Goal: Visually identify trade corridors.
 
-    Method:
+Method:
 
-        Overlay your graph on a map using ggraph + ggplot2 with geographic coordinates.
+    Overlay your graph on a map using ggraph + ggplot2 with geographic coordinates.
 
-        Highlight high-weight, long-distance edges or edges with high betweenness.
+    Highlight high-weight, long-distance edges or edges with high betweenness.
+```
 
 <!-- The following line inserts a page break  -->
 
