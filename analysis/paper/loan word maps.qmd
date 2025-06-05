@@ -133,6 +133,16 @@ data_list <- data_list |>
   purrr::map(~ dplyr::mutate(.x, style = stringr::str_extract(style, "^[A-Za-z]")))
 ```
 
+We need to standardise the "form" column to be lowercase
+
+```{r}
+data_list <- purrr::map(data_list, ~ {
+  .x |> 
+    dplyr::mutate(dplyr::across(.cols = starts_with("form"), ~ tolower(.)))
+})
+```
+
+
 ## Make interactive maps
 
 Function to make interactive leaflet maps
@@ -273,11 +283,8 @@ save_maps <- function(data_list, form_column = "form", background = "colour") {
 ```{r}
 #| label: fonio
 #| fig-cap: "fonio word forms"
-<<<<<<< HEAD:analysis/paper/paper.qmd
-# create_leaflet_map(data_list$iron, background = "bw")
-=======
-# create_leaflet_map(data_list$iron, background = "bw") #uncomment to run
->>>>>>> 1ac3771ae834a2d2fe1a97947a4f3c9014e125ab:analysis/paper/loan word maps.qmd
+
+ # create_leaflet_map(data_list$iron, background = "colour") #uncomment line to run
 ```
 
 Save an html version of all objects
@@ -285,11 +292,9 @@ Save an html version of all objects
 ```{r}
 #| label: save-maps
 #| eval: false
-<<<<<<< HEAD:analysis/paper/paper.qmd
-# save_maps(data_list)
-=======
-# save_maps(data_list)  #uncomment to run
->>>>>>> 1ac3771ae834a2d2fe1a97947a4f3c9014e125ab:analysis/paper/loan word maps.qmd
+
+ save_maps(data_list, background = "colour")  #uncomment to run
+
 ```
 
 ### Add further layers to the map
@@ -367,6 +372,7 @@ add_sf_to_leaflet_map <- function(leaflet_map, new_data_sf, label_column) {
 
 ```{r}
 library(rnaturalearth)
+library(rnaturalearthdata)
 
 # Load coastline and river data
 coastline <- ne_coastline(scale = "medium", returnclass = "sf")
